@@ -1,0 +1,72 @@
+@import 'fonts.scss';
+@import 'normalize';
+
+html {
+  height: 100%;
+}
+
+#root {
+  font-family: 'DroidSans', 'Tahoma', sans-serif;
+  color: #000000;
+  font-size: 14px;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+};
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+img {
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: #000000
+}
+
+:hover {
+  transition: 0.2s;
+}
+
+.visually-hidden {
+  display: none;
+}
