@@ -45,6 +45,7 @@ body {
 ul[class],
 ol[class] {
   list-style: none;
+  margin: 0;
 }
 
 img {
@@ -69,4 +70,22 @@ a {
 
 .visually-hidden {
   display: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+
+button {
+  cursor: pointer;
 }

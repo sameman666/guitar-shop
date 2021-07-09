@@ -11,16 +11,29 @@
     background-color: #3F3F3F;
     top: -16px;
   }
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 279px;
+    position: absolute;
+    top: -85px;
+    left: -65px;
+    z-index: -1;
+    background-image: url('./image_guitar_bottom.png');
+    background-repeat: no-repeat;
+  }
 }
 
 .footer__wrapper {
   display: flex;
-  min-width: 1020px;
+  min-width: 1003px;
   max-width: 1366px;
   height: 100%;
   margin: 0 auto;
   padding: 61px 40px;
   padding-bottom: 20px;
+  padding-right: 23px;
 }
 
 .footer__social {

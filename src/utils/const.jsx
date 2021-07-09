@@ -1,354 +1,281 @@
-// Импорты в начале, однотипные константы в перечисления, экспорт в конце все разом
+import guitar1 from './../components/main/guitar_1.png';
+import guitar2 from './../components/main/guitar_2.png';
+import guitar3 from './../components/main/guitar_3.png';
+import guitar4 from './../components/main/guitar_4.png';
+import guitar5 from './../components/main/guitar_5.png';
+import guitar6 from './../components/main/guitar_6.png';
 
-// import car from '../components/tab/car.jpg';
-// import carMobile from '../components/tab/car_mobile.jpg';
-// import carTablet from '../components/tab/car_tablet.jpg';
-// import lock from '../components/tab/lock.jpg';
-// import lockMobile from '../components/tab/lock_mobile.jpg';
-// import lockTablet from '../components/tab/lock_tablet.jpg';
-// import phone from '../components/tab/phone.jpg';
-// import phoneMobile from '../components/tab/phone_mobile.jpg';
-// import phoneTablet from '../components/tab/phone_tablet.jpg';
-// import piggyBank from '../components/tab/piggybank.jpg';
-// import piggyBankMobile from '../components/tab/piggybank_mobile.jpg';
-// import piggyBankTablet from '../components/tab/piggybank_tablet.jpg';
+const GUITARS = [
+  {
+    "number": `1`,
+    "id ": `SO757575`,
+    "name": `Честер Bass`,
+    "type": `электрогитара`,
+    "reviews": `15`,
+    "strings": `7`,
+    "price": `17 500`,
+    "image": guitar1
+  },
+  {
+    "number": `2`,
+    "id ": `TK129049`,
+    "name": `СURT Z300`,
+    "type": `электрогитара`,
+    "reviews": `9`,
+    "strings": `7`,
+    "price": `29 500`,
+    "image": guitar2
+  },
+  {
+    "number": `3`,
+    "id ": `RO111111`,
+    "name": `Roman LX`,
+    "type": `укулеле`,
+    "reviews": `21`,
+    "strings": `4`,
+    "price": `6 800`,
+    "image": guitar3
+  },
+  {
+    "number": `4`,
+    "id ": `TK436457`,
+    "name": `СURT T300`,
+    "type": `электрогитара`,
+    "reviews": `15`,
+    "strings": `6`,
+    "price": `30 000`,
+    "image": guitar4
+  },
+  {
+    "number": `5`,
+    "id ": `DI192138`,
+    "name": `Dania Super`,
+    "type": `акустическая гитара`,
+    "reviews": `5`,
+    "strings": `7`,
+    "price": `3 500`,
+    "image": guitar5
+  },
+  {
+    "number": `6`,
+    "id ": `SO934345`,
+    "name": `Честер WX `,
+    "type": `электрогитара`,
+    "reviews": `17`,
+    "strings": `6`,
+    "price": `15 300`,
+    "image": guitar1
+  },
+  {
+    "number": `7`,
+    "id ": `DI082347`,
+    "name": `Dania VX`,
+    "type": `укулеле`,
+    "reviews": `5`,
+    "strings": `4`,
+    "price": `2 200`,
+    "image": guitar3
+  },
+  {
+    "number": `8`,
+    "id ": `SO135646`,
+    "name": `Честер Plus `,
+    "type": `электрогитара`,
+    "reviews": `27`,
+    "strings": `4`,
+    "price": `30 000`,
+    "image": guitar6
+  },
+  {
+    "number": `9`,
+    "id ": `VO154751`,
+    "name": `Виолана 300`,
+    "type": `акустическая гитара`,
+    "reviews": `3`,
+    "strings": `7`,
+    "price": `1 700`,
+    "image": guitar5
+  },
+  {
+    "number": `10`,
+    "id ": `TK244556`,
+    "name": `СURT Clasic`,
+    "type": `электрогитара`,
+    "reviews": `20`,
+    "strings": `4`,
+    "price": `23 000`,
+    "image": guitar1
+  },
+  {
+    "number": `11`,
+    "id ": `TK134663`,
+    "name": `СURT Z250`,
+    "type": `электрогитара`,
+    "reviews": `19`,
+    "strings": `4`,
+    "price": `18 700`,
+    "image": guitar2
+  },
+  {
+    "number": `12`,
+    "id ": `SO123212`,
+    "name": `Честер 7X`,
+    "type": `электрогитара`,
+    "reviews": `30`,
+    "strings": `7`,
+    "price": `35 000`,
+    "image": guitar3
+  },
+  {
+    "number": `13`,
+    "id ": `SO123234`,
+    "name": `Честер 6V`,
+    "type": `электрогитара`,
+    "reviews": `28`,
+    "strings": `6`,
+    "price": `14 900`,
+    "image": guitar4
+  },
+  {
+    "number": `14`,
+    "id ": `VO519510`,
+    "name": `Виолана Mix`,
+    "type": `акустическая гитара`,
+    "reviews": `7`,
+    "strings": `6`,
+    "price": `7 600`,
+    "image": guitar5
+  },
+  {
+    "number": `15`,
+    "id ": `VO457369`,
+    "name": `Виолана 250x`,
+    "type": `акустическая гитара`,
+    "reviews": `19`,
+    "strings": `6`,
+    "price": `6 500`,
+    "image": guitar6
+  },
+  {
+    "number": `16`,
+    "id ": `FB625903`,
+    "name": `Фабио Лайт`,
+    "type": `акустическая гитара`,
+    "reviews": `26`,
+    "strings": `7`,
+    "price": `12 000`,
+    "image": guitar1
+  },
+  {
+    "number": `17`,
+    "id ": `FB576948`,
+    "name": `Фабио L100`,
+    "type": `акустическая гитара`,
+    "reviews": `31`,
+    "strings": `7`,
+    "price": `9 900`,
+    "image": guitar2
+  },
+  {
+    "number": `18`,
+    "id ": `LU012032`,
+    "name": `Liana Z200`,
+    "type": `акустическая гитара`,
+    "reviews": `28`,
+    "strings": `12`,
+    "price": `8 900`,
+    "image": guitar3
+  },
+  {
+    "number": `19`,
+    "id ": `LU546853`,
+    "name": `Liana Z100`,
+    "type": `акустическая гитара`,
+    "reviews": `34`,
+    "strings": `12`,
+    "price": `10 500`,
+    "image": guitar4
+  },
+  {
+    "number": `20`,
+    "id ": `LU458283`,
+    "name": `Liana Z300`,
+    "type": `акустическая гитара`,
+    "reviews": `9`,
+    "strings": `6`,
+    "price": `13 300`,
+    "image": guitar5
+  },
+  {
+    "number": `21`,
+    "id ": `RO324341`,
+    "name": `Roman RX`,
+    "type": `укулеле`,
+    "reviews": `37`,
+    "strings": `4`,
+    "price": `4 800`,
+    "image": guitar6
+  },
+  {
+    "number": `22`,
+    "id ": `RO214235`,
+    "name": `Roman TX`,
+    "type": `укулеле`,
+    "reviews": `5`,
+    "strings": `4`,
+    "price": `1 900`,
+    "image": guitar1
+  },
+  {
+    "number": `23`,
+    "id ": `DI132414`,
+    "name": `Dania U100`,
+    "type": `укулеле`,
+    "reviews": `23`,
+    "strings": `4`,
+    "price": `2 500`,
+    "image": guitar2
+  },
+  {
+    "number": `24`,
+    "id ": `DI934754`,
+    "name": `Dania WR`,
+    "type": `укулеле`,
+    "reviews": `3`,
+    "strings": `4`,
+    "price": `3 800`,
+    "image": guitar3
+  },
+  {
+    "number": `25`,
+    "id ": `DI034292`,
+    "name": `Dania LE`,
+    "type": `укулеле`,
+    "reviews": `10`,
+    "strings": `4`,
+    "price": `4 100`,
+    "image": guitar4
+  },
+  {
+    "number": `26`,
+    "id ": `MI193214`,
+    "name": `Mirana V10`,
+    "type": `укулеле`,
+    "reviews": `14`,
+    "strings": `4`,
+    "price": `2 700`,
+    "image": guitar5
+  },
+  {
+    "number": `27`,
+    "id ": `VO043244`,
+    "name": `Виолана Mini`,
+    "type": `укулеле`,
+    "reviews": `29`,
+    "strings": `4`,
+    "price": `6 700`,
+    "image": guitar6
+  }
+];
 
-// const DELAY_FOR_SLIDER = 4000;
-// const ESCAPE_KEYCODE = 27;
-// const INITIAL_FORM_NUMBER = 11;
-// const MIN_INCOME_IN_PERCENT = 45;
-// const PLACEHOLDER = `Выберите цель кредита`;
-
-// const Price = {
-//   INITIAL_PRICE: 2000000,
-//   PRICE_FOR_HOUSE_MIN: 1200000,
-//   PRICE_FOR_HOUSE_MAX: 25000000,
-//   PRICE_FOR_CAR_MIN: 500000,
-//   PRICE_FOR_CAR_MAX: 5000000,
-//   MIN_CAR_PRICE_FOR_LOWER_RATE: 2000000,
-//   STEP_FOR_HOUSE_PRICE: 100000,
-//   STEP_FOR_CAR_PRICE: 50000,
-//   MATERNAL_CAPITAL: 470000,
-//   PRICE_SEPARATOR: 3,
-//   CREDIT_FOR_HOUSE_MIN: 500000,
-//   CREDIT_FOR_CAR_MIN: 200000,
-// };
-
-// const Rate = {
-//   MIN_RATE_FOR_HOUSE: 8.50,
-//   MAX_RATE_FOR_HOUSE: 9.40,
-//   RATE_FOR_CAR_WITH_ALL_INSURANCE: 3.50,
-//   RATE_FOR_CAR_WITH_SOME_INSURANCE: 8.50,
-//   RATE_FOR_CAR_WITH_HIGH_PRICE: 15,
-//   RATE_FOR_CAR_DEFAULT: 16,
-// };
-
-// const Fee = {
-//   INITIAL_FEE_IN_PERCENT_FOR_HOUSE: 10,
-//   INITIAL_FEE_IN_PERCENT_FOR_CAR: 20,
-//   MIN_HOUSE_INITIAL_FEE_IN_PERCENT_FOR_LOWER_RATE: 15,
-// };
-
-// const Year = {
-//   YEARS_FOR_HOUSE_MIN: 5,
-//   YEARS_FOR_CAR_MIN: 1,
-//   YEARS_FOR_HOUSE_MAX: 30,
-//   YEARS_FOR_CAR_MAX: 5,
-//   MONTHS_IN_YEAR: 12,
-// };
-
-// const AvailableCredit = {
-//   HOUSE_CREDIT: `Ипотечное кредитование`,
-//   CAR_CREDIT: `Автомобильное кредитование`
-// };
-
-// const options = [
-//   {value: AvailableCredit.HOUSE_CREDIT, label: AvailableCredit.HOUSE_CREDIT},
-//   {value: AvailableCredit.CAR_CREDIT, label: AvailableCredit.CAR_CREDIT},
-// ];
-
-// const TabName = {
-//   DEPOSITS: `DEPOSITS`,
-//   CREDITS: `CREDITS`,
-//   INSURANCE: `INSURANCE`,
-//   ONLINE: `ONLINE`
-// };
-
-// const smoothScroll = {
-//   behavior: `smooth`,
-// };
-
-
-// const mockTabsData = {
-//   DEPOSITS: {
-//     title: `Вклады Лига Банка – это выгодная инвестиция в свое будущее`,
-//     features: [`Проценты по вкладам до 7%`, `Разнообразные условия`, `Возможность ежемесячной капитализации или вывод процентов на банковскую карту`],
-//     isButton: true,
-//     isLink: false,
-//     image: piggyBank,
-//     imageTablet: piggyBankTablet,
-//     imageMobile: piggyBankMobile,
-//   },
-//   CREDITS: {
-//     title: `Лига Банк выдает кредиты под любые цели`,
-//     features: [`Ипотечный кредит`, `Автокредит`, `Потребительский кредит`],
-//     isButton: false,
-//     isLink: true,
-//     image: car,
-//     imageTablet: carTablet,
-//     imageMobile: carMobile,
-//   },
-//   INSURANCE: {
-//     title: `Лига Страхование — застрахуем все что захотите`,
-//     features: [`Автомобильное страхование`, `Страхование жизни и здоровья`, `Страхование недвижимости`],
-//     isButton: true,
-//     isLink: false,
-//     image: lock,
-//     imageTablet: lockTablet,
-//     imageMobile: lockMobile,
-//   },
-//   ONLINE: {
-//     title: `Лига Банк — это огромное количество онлайн-сервисов для вашего удобства`,
-//     features: [`Мобильный банк,
-//     который всегда под рукой`, `Приложение Лига-проездной позволит вам оплачивать билеты по всему миру`],
-//     isButton: true,
-//     isLink: false,
-//     image: phone,
-//     imageTablet: phoneTablet,
-//     imageMobile: phoneMobile,
-//   },
-// };
-
-// const customStyles = {
-//   indicatorsContainer: (provided, state) => ({
-//     ...provided,
-//     "transform": state.selectProps.menuIsOpen ? `rotate(180deg)` : `rotate(0deg)`,
-//     "marginRight": 22,
-//     "@media (max-width: 767.2px)": {
-//       ...provided[`@media only screen and (max-width: 767.2px)`],
-//       marginRight: 14,
-//     },
-//   }),
-//   indicatorSeparator: () => ({
-//     display: `none`
-//   }),
-//   menu: (provided) => ({
-//     ...provided,
-//     marginTop: 0,
-//     borderRadius: `0 0 4px 4px`
-//   }),
-//   menuList: (provided) => ({
-//     ...provided,
-//     paddingTop: 0,
-//     paddingBottom: 0,
-//     border: `1px solid #1F1E25`,
-//   }),
-//   option: (provided) => ({
-//     ...provided,
-//     "padding": `21px 24px`,
-//     "borderBottom": `1px solid #C1C2CA`,
-//     "height": 60,
-//     "cursor": `pointer`,
-//     "@media (max-width: 767.2px)": {
-//       ...provided[`@media only screen and (max-width: 767.2px)`],
-//       paddingLeft: 14,
-//     },
-//   }),
-//   control: (provided, state) => ({
-//     ...provided,
-//     "cursor": `pointer`,
-//     "borderRadius": state.menuIsOpen ? `4px 4px 0 0` : `4px 4px 4px 4px`,
-//     "boxShadow": `none`,
-//     "height": 60,
-//     "paddingLeft": 21,
-//     "borderColor": `#1F1E25`,
-//     "paddingTop": 3,
-//     "@media (max-width: 767.2px)": {
-//       ...provided[`@media only screen and (max-width: 767.2px)`],
-//       paddingLeft: 12,
-//     },
-//   }),
-//   valueContainer: (provided) => ({
-//     ...provided,
-//     padding: 0,
-//   }),
-//   container: (provided, state) => ({
-//     ...provided,
-//     "height": 60,
-//     "marginTop": 25,
-//     "marginBottom": state.selectProps.menuIsOpen ? 216 : 0,
-//     "@media (max-width: 1023.2px)": {
-//       ...provided[`@media only screen and (max-width: 1023.2px)`],
-//       "width": `100%`,
-//       "marginTop": 21,
-//       "marginBottom": state.selectProps.menuIsOpen ? 189 : 0,
-//     },
-//     "@media (max-width: 767.2px)": {
-//       ...provided[`@media only screen and (max-width: 767.2px)`],
-//       "marginTop": 16,
-//       "marginBottom": state.selectProps.menuIsOpen ? 174 : 0,
-//     },
-//   }),
-//   placeholder: (provided) => ({
-//     ...provided,
-//     color: `#1F1E25`,
-//     fontWeight: 500,
-//   }),
-// };
-
-// const returnCreditTarget = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return `Ипотека`;
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return `Автокредит`;
-//     }
-//   }
-//   return ``;
-// };
-
-
-// const returnSeparatedPrice = (price) => {
-//   let separatedPrice = typeof price === `string` ? price.split(``).reverse() : price.toFixed().split(``).reverse();
-
-//   for (let i = Price.PRICE_SEPARATOR; i < separatedPrice.length; i = i + Price.PRICE_SEPARATOR + 1) {
-//     separatedPrice.splice(i, 0, ` `);
-//   }
-//   return separatedPrice.reverse().join(``);
-// };
-
-// const setLocalStorageItems = (evt) => {
-//   switch (evt.target.name) {
-//     case `full-name`: {
-//       localStorage.setItem(`full-name`, evt.target.value);
-//       break;
-//     }
-//     case `phone`: {
-//       localStorage.setItem(`phone`, evt.target.value);
-//       break;
-//     }
-//     case `email`: {
-//       localStorage.setItem(`email`, evt.target.value);
-//       break;
-//     }
-//   }
-// };
-
-// const returnCreditOption = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return `недвижимости`;
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return `автомобиля`;
-//     }
-//   }
-//   return ``;
-// };
-
-// const returnPriceRange = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return {
-//         min: returnSeparatedPrice(Price.PRICE_FOR_HOUSE_MIN),
-//         max: returnSeparatedPrice(Price.PRICE_FOR_HOUSE_MAX)
-//       };
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return {
-//         min: returnSeparatedPrice(Price.PRICE_FOR_CAR_MIN),
-//         max: returnSeparatedPrice(Price.PRICE_FOR_CAR_MAX)
-//       };
-//     }
-//   }
-//   return ``;
-// };
-
-// const returnMinCreditAmount = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return Price.CREDIT_FOR_HOUSE_MIN;
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return Price.CREDIT_FOR_CAR_MIN;
-//     }
-//   }
-//   return ``;
-// };
-
-// const returnCreditName = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return `ипотечные `;
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return `авто`;
-//     }
-//   }
-//   return ``;
-// };
-
-// const returnYearsRange = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return {
-//         min: Year.YEARS_FOR_HOUSE_MIN,
-//         max: Year.YEARS_FOR_HOUSE_MAX
-//       };
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return {
-//         min: Year.YEARS_FOR_CAR_MIN,
-//         max: Year.YEARS_FOR_CAR_MAX
-//       };
-//     }
-//   }
-//   return ``;
-// };
-
-// const returnYearsText = (years) => {
-//   years = years % 100;
-//   if (years >= 5 && years <= 20) {
-//     return ` лет`;
-//   } else {
-//     years = years % 10;
-//     if (years === 1) {
-//       return ` год`;
-//     } else if (years >= 2 && years <= 4) {
-//       return ` года`;
-//     } else {
-//       return ` лет`;
-//     }
-//   }
-// };
-
-// const returnCurrencyText = (amount) => {
-//   amount = amount % 100;
-//   if (amount >= 5 && amount <= 20) {
-//     return ` рублей`;
-//   } else {
-//     amount = amount % 10;
-//     if (amount === 1) {
-//       return ` рубль`;
-//     } else if (amount >= 2 && amount <= 4) {
-//       return ` рубля`;
-//     } else {
-//       return ` рублей`;
-//     }
-//   }
-// };
-
-// const returnCreditTargetForPopup = (currentOption) => {
-//   switch (currentOption) {
-//     case AvailableCredit.HOUSE_CREDIT: {
-//       return `ипотеки`;
-//     }
-//     case AvailableCredit.CAR_CREDIT: {
-//       return `автокредита`;
-//     }
-//   }
-//   return ``;
-// };
-
-// export {Price, Rate, Fee, Year, AvailableCredit, options, TabName, smoothScroll, mockTabsData, customStyles, DELAY_FOR_SLIDER, PLACEHOLDER, ESCAPE_KEYCODE, INITIAL_FORM_NUMBER, MIN_INCOME_IN_PERCENT, returnCreditTarget, returnSeparatedPrice, setLocalStorageItems, returnCreditOption, returnPriceRange, returnMinCreditAmount, returnCreditName, returnYearsRange, returnYearsText, returnCurrencyText, returnCreditTargetForPopup};
+export {GUITARS};

@@ -1,0 +1,353 @@
+.main {
+
+  h1 {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 20px;
+  }
+}
+
+.main__wrapper {
+  margin: 0 auto;
+  padding: 214px 0 0 40px;
+  max-width: 1366px;
+  padding-bottom: 139px;
+}
+
+.main__crumbs {
+  a {
+    color: #474747;
+    font-size: 16px;
+    line-height: 19px;
+    margin-right: 36px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    letter-spacing: 0.04em;
+  }
+
+  a:not(:first-child)::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url('./arrow_right.svg');
+    left: -25px;
+    top: 2px;
+    position: absolute;
+    cursor: default;
+  }
+}
+
+.main__content {
+  margin-top: 48px;
+  display: flex;
+}
+
+aside {
+  min-width: 208px;
+
+  h2, h3 {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  h2 {
+    margin-bottom: 29px;
+  }
+
+  h3 {
+    margin-bottom: 24px;;
+  }
+
+  ul {
+    padding-left: 40px;
+    padding-top: 2px;
+  }
+
+  li {
+    margin-bottom: 17px;
+  };
+
+  label {
+    font-size: 16px;
+    line-height: 19px;
+    position: relative;
+    margin-bottom: 17px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+  }
+
+  input[type='checkbox'] + label::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background-image: url('./checkbox_off.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    left: -40px;
+    top: -2px;
+  }
+
+  input[type='checkbox']:checked + label::before {
+    background-image: url('./checkbox_on.svg');
+  }
+
+  input[type='checkbox']:disabled + label::before {
+    background-image: url('./checkbox_disabled.svg');
+  }
+
+  input[type='checkbox']:disabled + label {
+    color: #DDDDDD;
+  }
+}
+
+.main__filter {
+  border-top: 1px solid #DDDADA;
+  padding-top: 30px;
+  margin-bottom: 29px;
+
+  &--guitars {
+    margin-bottom: 32px;
+  }
+}
+
+.main__filter-price-inputs {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    text-align: center;
+    max-width: 84px;
+    min-height: 28px;
+    border: 0.7px solid #9F9E9E;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    border: 1px solid #585757;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.main__button {
+  color: #FFFFFF;
+  border: none;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  background-color: #C1C1C1;
+
+  &--submit {
+    min-width: 120px;
+    min-height: 30px;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+}
+
+.main__content-data {
+  margin-left: 33px;
+  padding-top: 2px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__sorting {
+  display: flex;
+  align-items: baseline;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+
+  p {
+    margin-right: 18px;
+  }
+}
+
+.main__sorting-button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  margin-right: 34px;
+  letter-spacing: 0.07em;
+  color: #585757;
+}
+
+
+.main__sorting-button--active {
+  color: #000000;
+}
+
+.main__sorting-arrows {
+  margin-left: auto;
+  margin-right: 35px;
+  display: flex;
+  align-self: self-start;
+  margin-top: 4px;
+
+  button {
+    margin: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid #6C6C6C;
+    margin-left: 23px;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .main__sorting-arrow--active {
+    border-bottom-color: #000000;
+  }
+
+  .main__sorting-arrow--down {
+    transform: rotate(180deg);
+  }
+}
+
+.main__list {
+  padding: 0;
+  padding-top: 29px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main__list-item {
+  width: 220px;
+  min-height: 304px;
+  border: 1px solid #DDDADA;
+  padding: 11px 14px 14px 12px;
+  margin-right: 19px;
+  margin-bottom: 30px;
+
+  img {
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+}
+
+.main__list-item-rating {
+  display: flex;
+
+  span {
+    color: #9F9E9E;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: right;
+    display: block;
+    min-width: 14px;
+  }
+}
+
+.main__list-item-stars {
+  display: flex;
+  padding-left: 0;
+  padding-top: 1px;
+}
+
+.main__list-item-star {
+  width: 12px;
+  height: 12px;
+  background-image: url('./star_empty.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 2px;
+
+  &--half {
+    background-image: url('./star_half.svg');
+  }
+
+  &--full {
+    background-image: url('./star.svg');
+  }
+}
+
+.main__list-item-decription {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 15px;
+  letter-spacing: 0.03em;
+  margin-top: 4px;
+
+  h4 {
+    max-width: 50%;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+  }
+
+  p {
+    letter-spacing: 0.05em;
+    max-width: 50%;
+  }
+}
+
+.main-list-item-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 13px;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 89px;
+    min-height: 23px;
+    text-align: center;
+  }
+
+  button {
+    background-color: #E27F00;
+    width: 87px;
+    padding-left: 20px;
+    padding-top: 3px;
+    background-image: url('./cart.svg');
+    background-repeat: no-repeat;
+    background-position: center left 10px;
+  }
+}
+
+.main__pagination {
+  display: flex;
+  margin-left: auto;
+  margin-right: 13px;
+}
+
+.main__pagination-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 24px;
+  height: 24px;
+  border: 0.7px solid #9F9E9E;
+  border-radius: 2px;
+  margin-right: 10px;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+
+  &--active {
+    background-color: #585757;
+    color: #FFFFFF;
+  }
+
+  &:last-child {
+    min-width: 80px;
+    margin-left: 4px;
+  }
+}

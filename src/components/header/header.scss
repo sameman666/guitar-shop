@@ -1,16 +1,30 @@
 .header {
   min-height: 110px;
   background-color: #DDDADA;
+  position: relative;
+  overflow-x: clip;
+
+  &::after {
+    content: '';
+    width: 1089px;
+    height: 289px;
+    background-image: url('./image_guitar_top.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    bottom: -255px;
+  }
 }
 
 .header__wrapper {
   display: flex;
   align-items: center;
-  min-width: 1020px;
+  min-width: 1003px;
   max-width: 1366px;
   height: 100%;
   margin: 0 auto;
   padding: 20px 40px;
+  padding-right: 23px;
 }
 
 .header__menu {
