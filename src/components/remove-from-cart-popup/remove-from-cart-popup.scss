@@ -1,0 +1,29 @@
+.cart-popup__body-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+
+  button {
+    margin-top: 16px;
+  }
+
+  button:first-child {
+    padding-bottom: 4px;
+  }
+
+  button:last-child {
+    color: #585757;
+    background-color: transparent;
+    border: 1px solid #585757;
+  }
+
+  button:last-child:hover {
+    color: rgba(88, 87, 87, 0.7);
+    border-color:rgba(88, 87, 87, 0.7);
+  }
+
+  button:last-child:active {
+    color: rgba(88, 87, 87, 0.5);
+    border-color: rgba(88, 87, 87, 0.5);
+  }
+}

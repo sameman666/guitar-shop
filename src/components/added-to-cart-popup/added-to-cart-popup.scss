@@ -1,0 +1,36 @@
+.cart-popup--added {
+  min-height: 185px;
+  h3 {
+    letter-spacing: 0.025em;
+  }
+
+  .cart-popup__body {
+    margin-left: 86px;
+    margin-top: 2px;
+  }
+
+  .main__button {
+    margin-left: 0;
+    margin-right: 37px;
+  }
+
+  .main__button:first-child {
+    padding-bottom: 6px;
+  }
+
+  .main__button:last-child {
+    color: #585757;
+    background-color: transparent;
+    border: 1px solid #585757;
+  }
+
+  .main__button:last-child:hover {
+    color: rgba(88, 87, 87, 0.7);
+    border-color:rgba(88, 87, 87, 0.7);
+  }
+
+  .main__button:last-child:active {
+    color: rgba(88, 87, 87, 0.5);
+    border-color: rgba(88, 87, 87, 0.5);
+  }
+}

@@ -79,24 +79,48 @@ aside {
     letter-spacing: 0.03em;
   }
 
+  input[type='checkbox'] {
+    position: absolute;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  input[type='checkbox']:focus + label {
+    outline: 1px solid black;
+  }
+
   input[type='checkbox'] + label::before {
     content: '';
     width: 24px;
     height: 24px;
     position: absolute;
-    background-image: url('./checkbox_off.svg');
+    border: 1px solid #9F9E9E;
+    border-radius: 2px;
     background-repeat: no-repeat;
     background-position: center;
     left: -40px;
     top: -2px;
   }
 
+  input[type='checkbox'] + label:hover::before {
+    border-color: #585757;
+  }
+
+  input[type='checkbox'] + label:active::before {
+    border-color: #C1C1C1;
+  }
+
   input[type='checkbox']:checked + label::before {
-    background-image: url('./checkbox_on.svg');
+    background-image: url('./checked.svg');
   }
 
   input[type='checkbox']:disabled + label::before {
-    background-image: url('./checkbox_disabled.svg');
+    border-color: #DDDDDD;
+    background-color: #F6F3F3;
+    background-image: none;
   }
 
   input[type='checkbox']:disabled + label {
@@ -156,6 +180,14 @@ aside {
   }
 }
 
+.main__button:hover {
+  background-color: #585757;
+}
+
+.main__button:active {
+  background-color: #9F9E9E;
+}
+
 .main__content-data {
   margin-left: 33px;
   padding-top: 2px;
@@ -194,7 +226,7 @@ aside {
   margin-left: auto;
   margin-right: 35px;
   display: flex;
-  align-self: self-start;
+  align-self: start;
   margin-top: 4px;
 
   button {
@@ -320,12 +352,21 @@ aside {
     background-repeat: no-repeat;
     background-position: center left 10px;
   }
+
+  button:hover {
+    background-color: #FFA839;
+  }
+
+  button:active {
+    background-color: #DA8B26;
+  }
 }
 
 .main__pagination {
   display: flex;
   margin-left: auto;
   margin-right: 13px;
+  margin-top: auto;
 }
 
 .main__pagination-link {
@@ -335,6 +376,7 @@ aside {
   min-width: 24px;
   height: 24px;
   border: 0.7px solid #9F9E9E;
+  background-color: transparent;
   border-radius: 2px;
   margin-right: 10px;
   font-size: 12px;
@@ -346,8 +388,21 @@ aside {
     color: #FFFFFF;
   }
 
-  &:last-child {
+  &--text{
     min-width: 80px;
     margin-left: 4px;
+  }
+
+  &--dots{
+    cursor: default;
+  }
+
+  &--hidden {
+    visibility: hidden;
+  }
+
+  &:not(.main__pagination-link--dots):hover {
+    background-color: #585757;
+    color: #FFFFFF;
   }
 }

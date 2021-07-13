@@ -48,6 +48,14 @@
     margin-bottom: 10px;
   }
 
+  a:hover {
+    color: #474747;
+  }
+
+  a:active {
+    color: rgba(71, 71, 71, 0.5);
+  }
+
   a:nth-child(4n+1) {
     margin-left: 0;
   }
@@ -81,14 +89,38 @@
     background-image: url('./location_icon.svg');
   }
 
+  &--location:hover {
+    background-image: url('./location_icon_hover.svg');
+  }
+
+  &--location:active {
+    background-image: url('./location_icon_click.svg');
+  }
+
   &--search {
     background-image: url('./search_icon.svg');
+  }
+
+  &--search:hover {
+    background-image: url('./search_icon_hover.svg');
+  }
+
+  &--search:active {
+    background-image: url('./search_icon_click.svg');
   }
 
   &--cart {
     background-image: url('./cart_icon.svg');
     text-align: right;
-    padding-top: 12px;
+    padding-top: 10px;
     padding-right: 5px;
+  }
+
+  &--cart:hover {
+    background-image: url('./cart_icon_hover.svg');
+  }
+
+  &--cart:active {
+    background-image: url('./cart_icon_click.svg');
   }
 }

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './header.scss';
 import logo from './logo.png';
+import {ContextApp} from '../app/app';
+import {Link} from 'react-router-dom';
 
 const Header = () => {
+
+  const {cart} = useContext(ContextApp);
 
   return (
     <header className="header">
@@ -22,7 +26,7 @@ const Header = () => {
           <div className="header__links">
             <a className="header__link header__link--location" href="#"></a>
             <a className="header__link header__link--search" href="#"></a>
-            <a className="header__link header__link--cart" href="#"><sup>2</sup></a>
+            <Link to={`/cart`} className="header__link header__link--cart">{cart.length > 0 && <sup>{cart.length}</sup>}</Link>
           </div>
         </div>
       </div>
