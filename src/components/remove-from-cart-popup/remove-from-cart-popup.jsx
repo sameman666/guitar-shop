@@ -15,7 +15,7 @@ const RemoveFromCartPopup = (props) => {
           <button onClick={onRemovePopupHandler} className="cart-popup__close-button" type="button"></button>
         </div>
         <div className="cart-popup__body">
-          <img src={guitarToRemove.image} alt="" width="64" height="138"/>
+          <img src={guitarToRemove.image} alt={guitarToRemove.name} width="56" height="138"/>
           <div className="cart-popup__description">
             <h4>Гитара {guitarToRemove.name}</h4>
             <p>Артикул: {guitarToRemove.id}</p>

@@ -79,7 +79,7 @@
 
 .main__cart-list-item-amount {
   display: flex;
-  margin-left: 85px;
+  margin-left: 84px;
   margin-top: 20px;
 
   button {
@@ -108,29 +108,6 @@
     font-size: 16px;
     margin: 0 -1px;
     border: 1px solid #9F9E9E;
-  }
-}
-
-
-
-.main__cart-list-item:nth-child(2) {
-  .main__cart-list-item-info {
-    margin-top: 3px;
-  }
-
-  // .main__cart-list-item-price {
-  //   margin-left: 116px;
-  // }
-
-  .main__cart-list-item-price--total {
-    font-size: 20px;
-    margin-left: auto;
-    margin-right: 7px;
-  }
-
-  .main__cart-list-item-amount {
-    // margin-left: 89px;
-    margin-top: 23px;
   }
 }
 

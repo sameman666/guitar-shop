@@ -68,6 +68,10 @@
   display: flex;
   align-items: flex-start;
 
+  img {
+    margin-left: 3px;
+  }
+
   button {
     width: 220px;
     height: 46px;
@@ -78,6 +82,14 @@
     margin-left: auto;
     margin-right: 28px;
     margin-top: 15px;
+  }
+
+  button:hover {
+    background-color: #FFA839;
+  }
+
+  button:active {
+    background-color: #DA8B26;
   }
 
   a {
@@ -107,7 +119,7 @@
 }
 
 .cart-popup__description {
-  margin-left: 37px;
+  margin-left: 42px;
   margin-top: 17px;
 
   p {
@@ -123,5 +135,9 @@
     line-height: 15px;
     letter-spacing: 0.05em;
     margin-top: 20px;
+  }
+
+  p:first-letter {
+    text-transform: capitalize;
   }
 }

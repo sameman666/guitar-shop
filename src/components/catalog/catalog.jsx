@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import './catalog.scss';
-import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, Prices, SortTypes, SortDirections, returnSeparatedPrice} from '../../utils/const';
+import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, Prices, SortTypes, SortDirections, returnSeparatedPrice} from '../../utils/const';
 import Popup from '../popup/popup';
-import {ContextApp} from '../app/app';
+import GuitarCard from '../guitar-card/guitar-card';
+import {ContextApp} from '../../utils/const';
 import {Link} from 'react-router-dom';
 
 const Catalog = () => {
@@ -39,22 +39,19 @@ const Catalog = () => {
     cart: []
   };
 
-  const guitarStartCount = 0;
-  const guitarEndCount = 9;
-
   const setGuitarStartCount = () => {
     if (state.currentPage === 1) {
-      return guitarStartCount;
+      return GUITAR_START_COUNT;
     } else {
-      return (guitarStartCount + 9) * (state.currentPage - 1);
+      return (GUITAR_START_COUNT + MAX_ITEMS_PER_PAGE) * (state.currentPage - 1);
     }
   };
 
   const setGuitarEndCount = () => {
     if (state.currentPage === 1) {
-      return guitarEndCount;
+      return GUITAR_END_COUNT;
     } else {
-      return guitarEndCount * state.currentPage;
+      return GUITAR_END_COUNT * state.currentPage;
     }
   };
 
@@ -63,7 +60,7 @@ const Catalog = () => {
   const minPrice = useRef();
   const maxPrice = useRef();
 
-  const pagesAmount = Math.ceil(state.guitars.length / 9);
+  const pagesAmount = Math.ceil(state.guitars.length / MAX_ITEMS_PER_PAGE);
 
   useEffect(() =>{
     setAvailableStringsToShow();
@@ -86,7 +83,7 @@ const Catalog = () => {
   };
 
   const sortItemsHandler = (evt) => {
-    let sortedItems;
+    let sortedGuitars;
     let currentSortType;
     let currentSortDirection;
     if (!state.currentSortDirection) {
@@ -99,11 +96,11 @@ const Catalog = () => {
         currentSortType = SortTypes.PRICE;
         switch (currentSortDirection) {
           case SortDirections.ASCENDING: {
-            sortedItems = state.guitars.sort((a, b) => a.price - b.price);
+            sortedGuitars = state.guitars.sort((a, b) => a.price - b.price);
             break;
           }
           case SortDirections.DESCENDING: {
-            sortedItems = state.guitars.sort((a, b) => b.price - a.price);
+            sortedGuitars = state.guitars.sort((a, b) => b.price - a.price);
             break;
           }
         }
@@ -113,11 +110,11 @@ const Catalog = () => {
         currentSortType = SortTypes.POPULARITY;
         switch (currentSortDirection) {
           case SortDirections.ASCENDING: {
-            sortedItems = state.guitars.sort((a, b) => a.reviews - b.reviews);
+            sortedGuitars = state.guitars.sort((a, b) => a.reviews - b.reviews);
             break;
           }
           case SortDirections.DESCENDING: {
-            sortedItems = state.guitars.sort((a, b) => b.reviews - a.reviews);
+            sortedGuitars = state.guitars.sort((a, b) => b.reviews - a.reviews);
             break;
           }
         }
@@ -128,12 +125,12 @@ const Catalog = () => {
       ...state,
       currentSortDirection,
       currentSortType,
-      guitars: sortedItems,
+      guitars: sortedGuitars,
     });
   };
 
   const sortItemsDirectionHandler = (evt) => {
-    let sortedItems;
+    let sortedGuitars;
     let currentSortDirection;
     let currentSortType;
     if (!state.currentSortType) {
@@ -146,11 +143,11 @@ const Catalog = () => {
         currentSortDirection = SortDirections.ASCENDING;
         switch (currentSortType) {
           case SortTypes.PRICE: {
-            sortedItems = state.guitars.sort((a, b) => a.price - b.price);
+            sortedGuitars = state.guitars.sort((a, b) => a.price - b.price);
             break;
           }
           case SortTypes.POPULARITY: {
-            sortedItems = state.guitars.sort((a, b) => a.reviews - b.reviews);
+            sortedGuitars = state.guitars.sort((a, b) => a.reviews - b.reviews);
             break;
           }
         }
@@ -160,11 +157,11 @@ const Catalog = () => {
         currentSortDirection = SortDirections.DESCENDING;
         switch (currentSortType) {
           case SortTypes.PRICE: {
-            sortedItems = state.guitars.sort((a, b) => b.price - a.price);
+            sortedGuitars = state.guitars.sort((a, b) => b.price - a.price);
             break;
           }
           case SortTypes.POPULARITY: {
-            sortedItems = state.guitars.sort((a, b) => b.reviews - a.reviews);
+            sortedGuitars = state.guitars.sort((a, b) => b.reviews - a.reviews);
             break;
           }
         }
@@ -175,7 +172,7 @@ const Catalog = () => {
       ...state,
       currentSortType,
       currentSortDirection,
-      guitars: sortedItems
+      guitars: sortedGuitars
     });
   };
 
@@ -224,7 +221,7 @@ const Catalog = () => {
 
   const submitFiltersHandler = (evt) => {
     evt.preventDefault();
-    if (!maxPrice.current.value) {
+    if (!maxPrice.current.value && minPrice.current.value) {
       maxPrice.current.value = MAX_GUITAR_PRICE;
     }
     if (maxPrice.current.value === true || +maxPrice.current.value < +minPrice.current.value) {
@@ -264,7 +261,9 @@ const Catalog = () => {
     }
     setState({
       ...state,
-      guitars: filteredGuitars
+      guitars: filteredGuitars,
+      currentSortType: null,
+      currentSortDirection: null,
     });
   };
 
@@ -299,6 +298,9 @@ const Catalog = () => {
   };
 
   const addToCartPopupHandler = (evt) => {
+    if (cart.find((guitar) => guitar.id === evt.target.dataset.id)) {
+      return;
+    }
     const choosedGuitar = state.guitars.find((guitar) => guitar.id === evt.target.dataset.id);
     setState({
       ...state,
@@ -341,8 +343,7 @@ const Catalog = () => {
       state.choosedGuitar
     ]);
   };
-  // console.log(state.guitars);
-  // console.log(cart);
+
   return (
     <main className="main">
       <div className="main__wrapper">
@@ -393,59 +394,33 @@ const Catalog = () => {
           <section className="main__content-data">
             <div className="main__sorting">
               <p>Сортировать:</p>
-              <button onClick={sortItemsHandler} type="button" className={`main__sorting-button ${state.currentSortType === SortTypes.PRICE ? `main__sorting-button--active` : ``}`}>по цене</button>
-              <button onClick={sortItemsHandler} type="button" className={`main__sorting-button ${state.currentSortType === SortTypes.POPULARITY ? `main__sorting-button--active` : ``}`}>по популярности</button>
+              {Object.values(SortTypes).map((sortType) => {
+                return <button key={sortType} onClick={sortItemsHandler} type="button" className={`main__sorting-button ${state.currentSortType === sortType ? `main__sorting-button--active` : ``}`}>{sortType}</button>;
+              })}
               <div className="main__sorting-arrows">
-                <button onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow main__sorting-arrow--up ${state.currentSortDirection === SortDirections.ASCENDING ? `main__sorting-arrow--active` : ``}`} aria-label={SortDirections.ASCENDING}></button>
-                <button onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow main__sorting-arrow--down ${state.currentSortDirection === SortDirections.DESCENDING ? `main__sorting-arrow--active` : ``}`} aria-label={SortDirections.DESCENDING}></button>
+                {Object.values(SortDirections).map((sortDirection) => {
+                  return <button key={sortDirection} onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow ${state.currentSortDirection === sortDirection ? `main__sorting-arrow--active` : ``}`} aria-label={sortDirection}></button>;
+                })}
               </div>
             </div>
             {!state.guitars.length && <p style={{margin: `auto`}}>Нет таких гитар :(</p>}
             <ul className="main__list">
               {state.guitars.slice(setGuitarStartCount(), setGuitarEndCount()).map((guitar) =>
-                <li key={guitar.id} className="main__list-item">
-                  <img src={guitar.image} alt="Гитара" height="197"/>
-                  <div className="main__list-item-rating">
-                    <ul className="main__list-item-stars">
-                      <li className="main__list-item-star main__list-item-star--full"></li>
-                      <li className="main__list-item-star main__list-item-star--full"></li>
-                      <li className="main__list-item-star main__list-item-star--full"></li>
-                      <li className="main__list-item-star main__list-item-star--half"></li>
-                      <li className="main__list-item-star"></li>
-                    </ul>
-                    <span>{guitar.reviews}</span>
-                  </div>
-                  <div className="main__list-item-decription">
-                    <h4>{guitar.name}</h4>
-                    <p>{returnSeparatedPrice(guitar.price)} ₽</p>
-                  </div>
-                  <div className="main-list-item-buttons">
-                    <a href="#" className="main__button">Подробнее</a>
-                    <button onClick={addToCartPopupHandler} data-id={guitar.id} className="main__button" type="button">Купить</button>
-                  </div>
-                </li>
+                <GuitarCard key={guitar.id} guitar={guitar} onAddToCartPopupHandler={addToCartPopupHandler}/>
               )}
             </ul>
-            <div className="main__pagination" onClick={paginationHandler}>
-
+            {state.guitars.length > 0 && <div className="main__pagination" onClick={paginationHandler}>
               {state.currentPage !== 1 && <button onClick={swipeHandler} className="main__pagination-link main__pagination-link--text">Назад</button>}
               <button className={`main__pagination-link ${state.currentPage === 1 ? `main__pagination-link--active` : ``}`}>1
               </button>
-
-              {(pagesAmount > 2 && state.currentPage === 1 || state.currentPage === 2 || state.currentPage === 3) && <button className={`main__pagination-link ${state.currentPage === 2 ? `main__pagination-link--active` : ``}`}>2</button>}
-
+              {(pagesAmount > 2 && state.currentPage === 1 || state.currentPage === 3) && <button className={`main__pagination-link ${state.currentPage === 2 ? `main__pagination-link--active` : ``}`}>2</button>}
               {state.currentPage > 3 && <button className="main__pagination-link main__pagination-link--dots">...</button>}
-
-              {state.currentPage > 2 && state.currentPage < pagesAmount && <button className="main__pagination-link main__pagination-link--active">{state.currentPage}</button>}
-
+              {state.currentPage >= 2 && state.currentPage < pagesAmount && <button className="main__pagination-link main__pagination-link--active">{state.currentPage}</button>}
               {state.currentPage > 0 && state.currentPage < pagesAmount - 2 && <button className="main__pagination-link main__pagination-link--dots">...</button>}
-
-              {(state.currentPage === pagesAmount || state.currentPage === pagesAmount - 2) && <button className={`main__pagination-link RRRR ${state.currentPage === pagesAmount - 1 ? `main__pagination-link--active` : ``}`}>{pagesAmount - 1}</button>}
-
+              {(pagesAmount > 3 && (state.currentPage === pagesAmount || state.currentPage === pagesAmount - 2)) && <button className={`main__pagination-link ${state.currentPage === pagesAmount - 1 ? `main__pagination-link--active` : ``}`}>{pagesAmount - 1}</button>}
               {pagesAmount > 1 && <button className={`main__pagination-link ${state.currentPage === pagesAmount ? `main__pagination-link--active` : ``}`}>{pagesAmount}</button>}
-
               <button onClick={swipeHandler} className={`main__pagination-link main__pagination-link--text ${state.currentPage === pagesAmount ? `main__pagination-link--hidden` : ``}`}>Далее</button>
-            </div>
+            </div>}
           </section>
         </div>
       </div>

@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import React, {useContext, useRef, useState} from 'react';
 import './cart.scss';
-// import {GUITARS} from '../../utils/const';
-import {ContextApp} from '../app/app';
+import {ContextApp} from '../../utils/const';
 import {Link} from 'react-router-dom';
 import {returnSeparatedPrice} from '../../utils/const';
 import Popup from '../popup/popup';
@@ -28,12 +26,14 @@ const Cart = () => {
   const amount = useRef();
   const promoCode = useRef();
 
-  // let totalPrice = cart.reduce((total, item) => total + +item.price * item.amount, 0);
-
   const increaseAmountHandler = (evt) => {
     let newCart = cart.slice();
     ++newCart.find((item) => item.id === evt.target.dataset.id).amount;
     setCart(newCart);
+    setState({
+      ...state,
+      totalPrice: newCart.reduce((total, item) => total + +item.price * item.amount, 0),
+    });
   };
 
   const decreaseAmountHandler = (evt) => {
@@ -42,6 +42,10 @@ const Cart = () => {
     if (currentGuitarAmount > 1) {
       --newCart.find((item) => item.id === evt.target.dataset.id).amount;
       setCart(newCart);
+      setState({
+        ...state,
+        totalPrice: newCart.reduce((total, item) => total + +item.price * item.amount, 0),
+      });
     } else {
       const guitarToRemove = cart.find((guitar) => guitar.id === evt.target.dataset.id);
       setState({
@@ -73,7 +77,7 @@ const Cart = () => {
     }
   };
 
-  const RemovePopupKeyDownHandler = (evt) => {
+  const removePopupKeyDownHandler = (evt) => {
     if (evt.keyCode === ESCAPE_KEYCODE) {
       setState({
         ...state,
@@ -90,11 +94,15 @@ const Cart = () => {
     setState({
       ...state,
       removePopupIsOpen: initialState.removePopupIsOpen,
+      totalPrice: newCart.reduce((total, item) => total + +item.price * item.amount, 0),
     });
     document.body.classList.toggle(`popup-opened`);
   };
 
   const applyPromoCode = () => {
+    if (!cart.length) {
+      return;
+    }
     switch (promoCode.current.value) {
       case `GITARAHIT`: {
         if (!state.promocodesApplied.GITARAHIT) {
@@ -132,7 +140,6 @@ const Cart = () => {
           } else {
             discountInRubles = 3500;
           }
-          console.log(`два`);
           setState({
             ...state,
             invalidPromocode: false,
@@ -206,7 +213,7 @@ const Cart = () => {
         removePopupIsOpen={state.removePopupIsOpen}
         onRemovePopupHandler={removePopupHandler}
         onCloseRemovePopupHandler={closeRemovePopupHandler}
-        onRemovePopupKeyDownHandler={RemovePopupKeyDownHandler}
+        onRemovePopupKeyDownHandler={removePopupKeyDownHandler}
         onRemoveItemFromCartHandler={removeItemFromCartHandler}
         guitarToRemove={state.guitarToRemove}
       />}

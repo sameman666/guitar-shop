@@ -13,7 +13,7 @@ const AddToCartPopup = (props) => {
           <button className="cart-popup__close-button" onClick={onAddToCartPopupHandler} type="button"></button>
         </div>
         <div className="cart-popup__body">
-          <img src={choosedGuitar.image} alt="" width="64" height="138"/>
+          <img src={choosedGuitar.image} alt={choosedGuitar.name} width="56" height="138"/>
           <div className="cart-popup__description">
             <h4>Гитара {choosedGuitar.name}</h4>
             <p>Артикул: {choosedGuitar.id}</p>

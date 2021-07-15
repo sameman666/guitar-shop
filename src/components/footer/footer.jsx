@@ -1,17 +1,18 @@
 import React from 'react';
 import './footer.scss';
 import logo from './logo_white.png';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__wrapper">
         <div className="footer__logo">
-          <a href="#">
+          <Link to={`/`}>
             <picture>
               <img src={logo} alt="Guitar Shop"/>
             </picture>
-          </a>
+          </Link>
           <div className="footer__social">
             <a href="#" className="footer__social-link footer__social-link--facebook" aria-label="facebook"></a>
             <a href="#" className="footer__social-link footer__social-link--instagram" aria-label="instagram"></a>

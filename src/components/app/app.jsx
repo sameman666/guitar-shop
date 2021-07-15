@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import MainPage from '../main-page/main-page';
 import CartPage from '../cart-page/cart-page';
 import {Switch, Route} from 'react-router-dom';
-
-export const ContextApp = React.createContext();
+import {ContextApp} from '../../utils/const';
 
 const App = () => {
 

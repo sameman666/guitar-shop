@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+import React from 'react';
 import guitar1 from './../components/catalog/guitar_1.png';
 import guitar2 from './../components/catalog/guitar_2.png';
 import guitar3 from './../components/catalog/guitar_3.png';
@@ -115,7 +115,7 @@ const GUITARS = [
     "reviews": `19`,
     "strings": `4`,
     "price": `18700`,
-    "image": guitar2
+    "image": guitar1
   },
   {
     "number": `12`,
@@ -125,7 +125,7 @@ const GUITARS = [
     "reviews": `30`,
     "strings": `7`,
     "price": `35000`,
-    "image": guitar3
+    "image": guitar1
   },
   {
     "number": `13`,
@@ -135,7 +135,7 @@ const GUITARS = [
     "reviews": `28`,
     "strings": `6`,
     "price": `14900`,
-    "image": guitar4
+    "image": guitar1
   },
   {
     "number": `14`,
@@ -155,7 +155,7 @@ const GUITARS = [
     "reviews": `19`,
     "strings": `6`,
     "price": `6500`,
-    "image": guitar6
+    "image": guitar5
   },
   {
     "number": `16`,
@@ -165,7 +165,7 @@ const GUITARS = [
     "reviews": `26`,
     "strings": `7`,
     "price": `12000`,
-    "image": guitar1
+    "image": guitar5
   },
   {
     "number": `17`,
@@ -175,7 +175,7 @@ const GUITARS = [
     "reviews": `31`,
     "strings": `7`,
     "price": `9900`,
-    "image": guitar2
+    "image": guitar5
   },
   {
     "number": `18`,
@@ -185,7 +185,7 @@ const GUITARS = [
     "reviews": `28`,
     "strings": `12`,
     "price": `8900`,
-    "image": guitar3
+    "image": guitar5
   },
   {
     "number": `19`,
@@ -195,7 +195,7 @@ const GUITARS = [
     "reviews": `34`,
     "strings": `12`,
     "price": `10500`,
-    "image": guitar4
+    "image": guitar5
   },
   {
     "number": `20`,
@@ -215,7 +215,7 @@ const GUITARS = [
     "reviews": `37`,
     "strings": `4`,
     "price": `4800`,
-    "image": guitar6
+    "image": guitar3
   },
   {
     "number": `22`,
@@ -225,7 +225,7 @@ const GUITARS = [
     "reviews": `5`,
     "strings": `4`,
     "price": `1900`,
-    "image": guitar1
+    "image": guitar3
   },
   {
     "number": `23`,
@@ -235,7 +235,7 @@ const GUITARS = [
     "reviews": `23`,
     "strings": `4`,
     "price": `2500`,
-    "image": guitar2
+    "image": guitar3
   },
   {
     "number": `24`,
@@ -255,7 +255,7 @@ const GUITARS = [
     "reviews": `10`,
     "strings": `4`,
     "price": `4100`,
-    "image": guitar4
+    "image": guitar3
   },
   {
     "number": `26`,
@@ -265,27 +265,27 @@ const GUITARS = [
     "reviews": `14`,
     "strings": `4`,
     "price": `2700`,
-    "image": guitar5
+    "image": guitar3
   },
   {
     "number": `27`,
     "id": `VO043244`,
-    "name": `Виолана Mi`,
+    "name": `Виолана Mix`,
     "type": `укулеле`,
     "reviews": `29`,
     "strings": `4`,
     "price": `6700`,
-    "image": guitar6
+    "image": guitar3
   },
   {
-    "number": `27`,
+    "number": `28`,
     "id": `VO0432442`,
-    "name": `Виолана Mi`,
+    "name": `Виолана Mix`,
     "type": `укулеле`,
     "reviews": `29`,
     "strings": `4`,
     "price": `6700`,
-    "image": guitar6
+    "image": guitar3
   },
 ];
 
@@ -306,10 +306,13 @@ const Prices = {
 };
 
 const AVAILABLE_STRINGS = [4, 6, 7, 12];
+const GUITAR_START_COUNT = 0;
+const GUITAR_END_COUNT = 9;
+const MAX_ITEMS_PER_PAGE = 9;
 const ESCAPE_KEYCODE = 27;
-const GUTARS_SORTED_BY_PRICE = GUITARS.slice().sort((a, b) => b.price - a.price);
-const MAX_GUITAR_PRICE = GUTARS_SORTED_BY_PRICE[0].price;
-const MIN_GUITAR_PRICE = GUTARS_SORTED_BY_PRICE[GUTARS_SORTED_BY_PRICE.length - 1].price;
+const GUITARS_SORTED_BY_PRICE = GUITARS.slice().sort((a, b) => b.price - a.price);
+const MAX_GUITAR_PRICE = GUITARS_SORTED_BY_PRICE[0].price;
+const MIN_GUITAR_PRICE = GUITARS_SORTED_BY_PRICE[GUITARS_SORTED_BY_PRICE.length - 1].price;
 
 const GUITAR_TYPES = [
   {
@@ -341,4 +344,6 @@ const returnSeparatedPrice = (price) => {
   return separatedPrice.reverse().join(``);
 };
 
-export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, SortTypes, SortDirections, Prices, returnSeparatedPrice};
+const ContextApp = React.createContext();
+
+export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, SortTypes, SortDirections, Prices, ContextApp, returnSeparatedPrice};

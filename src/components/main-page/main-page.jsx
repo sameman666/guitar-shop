@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import Header from '../header/header';
 import Catalog from '../catalog/catalog';

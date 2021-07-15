@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import './header.scss';
 import logo from './logo.png';
-import {ContextApp} from '../app/app';
+import {ContextApp} from '../../utils/const';
 import {Link} from 'react-router-dom';
 
 const Header = () => {
@@ -11,11 +11,11 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
-        <a href="#">
+        <Link to={`/`}>
           <picture>
             <img src={logo} alt="Guitar Shop"/>
           </picture>
-        </a>
+        </Link>
         <div className="header__menu">
           <nav className="header__navigation">
             <Link to={`/`}>Каталог</Link>
