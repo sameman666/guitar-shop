@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import './catalog.scss';
-import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, Prices, SortTypes, SortDirections, returnSeparatedPrice} from '../../utils/const';
+import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, Prices, SortTypes, SortDirections, returnSeparatedPrice, PageDirections} from '../../utils/const';
 import Popup from '../popup/popup';
 import GuitarCard from '../guitar-card/guitar-card';
 import {ContextApp} from '../../utils/const';
@@ -40,27 +41,18 @@ const Catalog = () => {
   };
 
   const setGuitarStartCount = () => {
-    if (state.currentPage === 1) {
-      return GUITAR_START_COUNT;
-    } else {
-      return (GUITAR_START_COUNT + MAX_ITEMS_PER_PAGE) * (state.currentPage - 1);
-    }
+    return state.currentPage === 1 ? GUITAR_START_COUNT : (GUITAR_START_COUNT + MAX_ITEMS_PER_PAGE) * (state.currentPage - 1);
   };
 
   const setGuitarEndCount = () => {
-    if (state.currentPage === 1) {
-      return GUITAR_END_COUNT;
-    } else {
-      return GUITAR_END_COUNT * state.currentPage;
-    }
+    return state.currentPage === 1 ? GUITAR_END_COUNT : GUITAR_END_COUNT * state.currentPage;
   };
 
   const [state, setState] = useState(initialState);
-
   const minPrice = useRef();
   const maxPrice = useRef();
 
-  const pagesAmount = Math.ceil(state.guitars.length / MAX_ITEMS_PER_PAGE);
+  let pagesAmount = Math.ceil(state.guitars.length / MAX_ITEMS_PER_PAGE);
 
   useEffect(() =>{
     setAvailableStringsToShow();
@@ -85,12 +77,7 @@ const Catalog = () => {
   const sortItemsHandler = (evt) => {
     let sortedGuitars;
     let currentSortType;
-    let currentSortDirection;
-    if (!state.currentSortDirection) {
-      currentSortDirection = SortDirections.ASCENDING;
-    } else {
-      currentSortDirection = state.currentSortDirection;
-    }
+    let currentSortDirection = !state.currentSortDirection ? SortDirections.ASCENDING : state.currentSortDirection;
     switch (evt.target.textContent) {
       case SortTypes.PRICE: {
         currentSortType = SortTypes.PRICE;
@@ -132,13 +119,8 @@ const Catalog = () => {
   const sortItemsDirectionHandler = (evt) => {
     let sortedGuitars;
     let currentSortDirection;
-    let currentSortType;
-    if (!state.currentSortType) {
-      currentSortType = SortTypes.PRICE;
-    } else {
-      currentSortType = state.currentSortType;
-    }
-    switch (evt.target.ariaLabel) {
+    let currentSortType = !state.currentSortType ? SortTypes.PRICE : state.currentSortType;
+    switch (evt.target.dataset.direction) {
       case SortDirections.ASCENDING: {
         currentSortDirection = SortDirections.ASCENDING;
         switch (currentSortType) {
@@ -177,22 +159,15 @@ const Catalog = () => {
   };
 
   const priceHandler = (evt) => {
-    switch (evt.target.id) {
-      case Prices.MIN_PRICE: {
-        setState({
-          ...state,
-          minPrice: evt.target.value
-        });
-        break;
-      }
-      case Prices.MAX_PRICE: {
-        setState({
-          ...state,
-          maxPrice: evt.target.value
-        });
-        break;
-      }
-    }
+    return evt.target.id === Prices.MIN_PRICE ?
+      setState({
+        ...state,
+        minPrice: evt.target.value
+      }) :
+      setState({
+        ...state,
+        maxPrice: evt.target.value
+      });
   };
 
   const typeHandler = (evt) => {
@@ -221,9 +196,7 @@ const Catalog = () => {
 
   const submitFiltersHandler = (evt) => {
     evt.preventDefault();
-    if (!maxPrice.current.value && minPrice.current.value) {
-      maxPrice.current.value = MAX_GUITAR_PRICE;
-    }
+    maxPrice.current.value = !maxPrice.current.value && minPrice.current.value ? MAX_GUITAR_PRICE : maxPrice.current.value;
     if (maxPrice.current.value === true || +maxPrice.current.value < +minPrice.current.value) {
       maxPrice.current.value = minPrice.current.value;
       setState({
@@ -232,11 +205,9 @@ const Catalog = () => {
       });
     }
     let filteredGuitars = initialState.guitars;
-    if (minPrice.current.value || maxPrice.current.value) {
-      filteredGuitars = filteredGuitars.filter((guitar) => {
-        return +guitar.price >= +minPrice.current.value && +guitar.price <= +maxPrice.current.value;
-      });
-    }
+    filteredGuitars = minPrice.current.value || maxPrice.current.value ? filteredGuitars.filter((guitar) => {
+      return +guitar.price >= +minPrice.current.value && +guitar.price <= +maxPrice.current.value;
+    }) : filteredGuitars;
     let filteredGuitarsByType = [];
     for (let guitarTypeToShow in state.guitarTypesToShow) {
       if (state.guitarTypesToShow[guitarTypeToShow]) {
@@ -245,9 +216,7 @@ const Catalog = () => {
         }));
       }
     }
-    if (filteredGuitarsByType) {
-      filteredGuitars = filteredGuitarsByType;
-    }
+    filteredGuitars = filteredGuitarsByType ? filteredGuitarsByType : filteredGuitars;
     let filteredGuitarsByStrings = [];
     for (let amountOfStrings in state.amountOfStringsToShow) {
       if (state.amountOfStringsToShow[amountOfStrings]) {
@@ -256,9 +225,7 @@ const Catalog = () => {
         }));
       }
     }
-    if (filteredGuitarsByStrings) {
-      filteredGuitars = filteredGuitarsByStrings;
-    }
+    filteredGuitars = filteredGuitarsByStrings ? filteredGuitarsByStrings : filteredGuitars;
     setState({
       ...state,
       guitars: filteredGuitars,
@@ -279,22 +246,21 @@ const Catalog = () => {
 
   const swipeHandler = (evt) => {
     const direction = evt.target.textContent;
+    let pageToSwipe;
     switch (direction) {
-      case `Назад`: {
-        setState({
-          ...state,
-          currentPage: state.currentPage - 1
-        });
+      case PageDirections.BACKWARD: {
+        pageToSwipe = state.currentPage - 1;
         break;
       }
-      case `Далее`: {
-        setState({
-          ...state,
-          currentPage: state.currentPage + 1
-        });
+      case PageDirections.FORWARD: {
+        pageToSwipe = state.currentPage + 1;
         break;
       }
     }
+    setState({
+      ...state,
+      currentPage: pageToSwipe
+    });
   };
 
   const addToCartPopupHandler = (evt) => {
@@ -399,7 +365,7 @@ const Catalog = () => {
               })}
               <div className="main__sorting-arrows">
                 {Object.values(SortDirections).map((sortDirection) => {
-                  return <button key={sortDirection} onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow ${state.currentSortDirection === sortDirection ? `main__sorting-arrow--active` : ``}`} aria-label={sortDirection}></button>;
+                  return <button key={sortDirection} onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow ${state.currentSortDirection === sortDirection ? `main__sorting-arrow--active` : ``}`} aria-label={sortDirection} data-direction={sortDirection}></button>;
                 })}
               </div>
             </div>

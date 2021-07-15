@@ -15,6 +15,10 @@
   padding-right: 23px;
   position: relative;
 
+  @-moz-document url-prefix() {
+    padding-right: 40px;
+  }
+
   &::after {
     content: '';
     width: 1089px;

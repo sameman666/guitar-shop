@@ -34,6 +34,10 @@
   padding: 61px 40px;
   padding-bottom: 20px;
   padding-right: 23px;
+
+  @-moz-document url-prefix() {
+    padding-right: 40px;
+  }
 }
 
 .footer__social {

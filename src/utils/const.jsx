@@ -305,6 +305,11 @@ const Prices = {
   MAX_PRICE: `max-price`,
 };
 
+const PageDirections = {
+  BACKWARD: `Назад`,
+  FORWARD: `Далее`,
+};
+
 const AVAILABLE_STRINGS = [4, 6, 7, 12];
 const GUITAR_START_COUNT = 0;
 const GUITAR_END_COUNT = 9;
@@ -346,4 +351,4 @@ const returnSeparatedPrice = (price) => {
 
 const ContextApp = React.createContext();
 
-export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, SortTypes, SortDirections, Prices, ContextApp, returnSeparatedPrice};
+export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, SortTypes, SortDirections, Prices, ContextApp, PageDirections, returnSeparatedPrice};
