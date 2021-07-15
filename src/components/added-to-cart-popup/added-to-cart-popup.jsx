@@ -1,6 +1,7 @@
 import React from 'react';
 import './added-to-cart-popup.scss';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const AddedToCartPopup = (props) => {
 
@@ -14,7 +15,7 @@ const AddedToCartPopup = (props) => {
           <button className="cart-popup__close-button" onClick={onAddToCartPopupHandler} type="button"></button>
         </div>
         <div className="cart-popup__body">
-          <button className="main__button" type="button" autoFocus={true}>Перейти в корзину</button>
+          <Link to={`/cart`} onClick={onAddToCartPopupHandler} className="main__button" type="button" autoFocus={true}>Перейти в корзину</Link>
           <button className="main__button cart-popup__close-button" type="button">Продолжить покупки</button>
         </div>
       </div>

@@ -4,10 +4,15 @@ import './catalog.scss';
 import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, Prices, SortTypes, SortDirections, returnSeparatedPrice} from '../../utils/const';
 import Popup from '../popup/popup';
 import {ContextApp} from '../app/app';
+import {Link} from 'react-router-dom';
 
 const Catalog = () => {
 
   const {cart, setCart} = useContext(ContextApp);
+
+  GUITARS.forEach((item) => {
+    item.amount = 1;
+  });
 
   const initialState = {
     guitars: GUITARS,
@@ -336,15 +341,15 @@ const Catalog = () => {
       state.choosedGuitar
     ]);
   };
-
-  console.log(cart);
+  // console.log(state.guitars);
+  // console.log(cart);
   return (
     <main className="main">
       <div className="main__wrapper">
         <h1>Каталог гитар</h1>
         <div className="main__crumbs">
-          <a href="#">Главная</a>
-          <a href="#">Каталог</a>
+          <Link to={`/`}>Главная</Link>
+          <Link to={`/`}>Каталог</Link>
         </div>
         <div className="main__content">
           <aside>

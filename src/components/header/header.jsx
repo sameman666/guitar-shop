@@ -18,7 +18,7 @@ const Header = () => {
         </a>
         <div className="header__menu">
           <nav className="header__navigation">
-            <a href="#">Каталог</a>
+            <Link to={`/`}>Каталог</Link>
             <a href="#">Где купить?</a>
             <a href="#">О компании</a>
             <a href="#">Сервис-центры</a>
