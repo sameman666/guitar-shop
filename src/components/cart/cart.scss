@@ -25,20 +25,8 @@
   border-bottom: 1px solid #DDDADA;
   padding-bottom: 15px;
 
-  .main__cart-list-item-info {
-    margin-left: 68px;
-    width: 260px;
-  }
-
   img {
     margin-left: 27px;
-  }
-
-  h4 {
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
   }
 
   p {
@@ -58,6 +46,7 @@
     margin-top: 58px;
     min-width: 89px;
     text-align: center;
+    max-width: 102px;
   }
 
   .main__cart-list-item-price--total {
@@ -67,6 +56,19 @@
     @-moz-document url-prefix() {
       margin-right: 17px;
     }
+  }
+}
+
+.main__cart-list-item-info {
+  margin-left: 68px;
+  width: 260px;
+
+  p:first-child {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    letter-spacing: 0.025em;
   }
 }
 
@@ -95,6 +97,10 @@
     border: 1px solid #9F9E9E;
   }
 
+  button:hover {
+    background-color: #F5F5F5;
+  }
+
   button:first-child {
     background-image: url('./minus.svg');
     border-right: none;
@@ -102,7 +108,6 @@
 
   button:last-child {
     background-image: url('./plus.svg');
-    border-left: none;
   }
 
   input {
@@ -113,6 +118,7 @@
     margin: 0 -1px;
     border: 1px solid #9F9E9E;
     cursor: default;
+    border-right: none;
   }
 }
 
@@ -120,14 +126,6 @@
   display: flex;
   justify-content: space-between;
   padding-top: 40px;
-
-  h5 {
-    margin: 0;
-    font-size: 16px;
-    line-height: 15px;
-    letter-spacing: 0.06em;
-    margin-bottom: 10px;
-  }
 
   p {
     font-size: 12px;
@@ -139,6 +137,17 @@
     margin-top: 19px;
   }
 
+  .main__promocode {
+    p:first-child {
+      margin: 0;
+      font-size: 16px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  }
+
   input {
     text-align: center;
     width: 170px;
@@ -146,6 +155,10 @@
     border: 2px solid #DDDADA;
     font-size: 16px;
     letter-spacing: 0.05em;
+  }
+
+  input:hover {
+    background-color: #F5F5F5;
   }
 
   .main__button {
@@ -177,6 +190,8 @@
 
 .main__cart-price-total {
   margin-right: 4px;
+  display: flex;
+  flex-direction: column;
 
   @-moz-document url-prefix() {
     margin-right: 21px;

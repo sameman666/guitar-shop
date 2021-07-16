@@ -13,7 +13,7 @@ const Header = () => {
       <div className="header__wrapper">
         <Link to={`/`}>
           <picture>
-            <img src={logo} alt="Guitar Shop"/>
+            <img src={logo} alt="Guitar Shop" width="67" height="70"/>
           </picture>
         </Link>
         <div className="header__menu">
@@ -24,9 +24,9 @@ const Header = () => {
             <a href="#">Сервис-центры</a>
           </nav>
           <div className="header__links">
-            <a className="header__link header__link--location" href="#"></a>
-            <a className="header__link header__link--search" href="#"></a>
-            <Link to={`/cart`} className="header__link header__link--cart">{cart.length > 0 && <sup>{cart.length}</sup>}</Link>
+            <a className="header__link header__link--location" href="#" aria-label="Навигация"></a>
+            <a className="header__link header__link--search" href="#" aria-label="Поиск"></a>
+            <Link to={`/cart`} className="header__link header__link--cart" aria-label="Корзина">{cart.length > 0 && <sup>{cart.length}</sup>}</Link>
           </div>
         </div>
       </div>

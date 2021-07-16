@@ -7,7 +7,7 @@ const GuitarCard = ({guitar, onAddToCartPopupHandler}) => {
 
   return (
     <li key={guitar.id} className="main__list-item">
-      <img src={guitar.image} alt="Гитара" height="197"/>
+      <img src={guitar.image} alt="Гитара" width="74" height="197"/>
       <div className="main__list-item-rating">
         <ul className="main__list-item-stars">
           <li className="main__list-item-star main__list-item-star--full"></li>
@@ -18,11 +18,11 @@ const GuitarCard = ({guitar, onAddToCartPopupHandler}) => {
         </ul>
         <span>{guitar.reviews}</span>
       </div>
-      <div className="main__list-item-decription">
+      <div className="main__list-item-description">
         <h4>{guitar.name}</h4>
         <p>{returnSeparatedPrice(guitar.price)} ₽</p>
       </div>
-      <div className="main-list-item-buttons">
+      <div className="main__list-item-buttons">
         <a href="#" className="main__button">Подробнее</a>
         <button onClick={onAddToCartPopupHandler} data-id={guitar.id} className="main__button" type="button">Купить</button>
       </div>

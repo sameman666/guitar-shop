@@ -11,6 +11,18 @@
     background-color: #3F3F3F;
     top: -16px;
   }
+}
+
+.footer__wrapper {
+  display: flex;
+  min-width: 1003px;
+  max-width: 1366px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 61px 40px;
+  padding-bottom: 20px;
+  padding-right: 23px;
+  position: relative;
 
   &::after {
     content: '';
@@ -23,17 +35,6 @@
     background-image: url('./image_guitar_bottom.png');
     background-repeat: no-repeat;
   }
-}
-
-.footer__wrapper {
-  display: flex;
-  min-width: 1003px;
-  max-width: 1366px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 61px 40px;
-  padding-bottom: 20px;
-  padding-right: 23px;
 
   @-moz-document url-prefix() {
     padding-right: 40px;

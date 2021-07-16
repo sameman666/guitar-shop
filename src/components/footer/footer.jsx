@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="footer__logo">
           <Link to={`/`}>
             <picture>
-              <img src={logo} alt="Guitar Shop"/>
+              <img src={logo} alt="Guitar Shop" width="67" height="70"/>
             </picture>
           </Link>
           <div className="footer__social">

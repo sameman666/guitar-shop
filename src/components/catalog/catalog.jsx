@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import './catalog.scss';
-import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, ESCAPE_KEYCODE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, Prices, SortTypes, SortDirections, returnSeparatedPrice, PageDirections} from '../../utils/const';
+import {GUITARS, GUITAR_TYPES, AVAILABLE_STRINGS, GuitarPrice, ESCAPE_KEYCODE, GuitarCount, MAX_GUITARS_PER_PAGE, Price, SortType, SortDirection, returnSeparatedPrice, PageDirection, DEFAULT_ITEM_AMOUNT} from '../../utils/const';
 import Popup from '../popup/popup';
 import GuitarCard from '../guitar-card/guitar-card';
 import {ContextApp} from '../../utils/const';
@@ -9,10 +8,8 @@ import {Link} from 'react-router-dom';
 
 const Catalog = () => {
 
-  const {cart, setCart} = useContext(ContextApp);
-
   GUITARS.forEach((item) => {
-    item.amount = 1;
+    item.amount = DEFAULT_ITEM_AMOUNT;
   });
 
   const initialState = {
@@ -22,15 +19,15 @@ const Catalog = () => {
     minPrice: ``,
     maxPrice: ``,
     guitarTypesToShow: {
-      "акустическая гитара": false,
+      "акустическая гитара": true,
       "электрогитара": true,
       "укулеле": true,
     },
     amountOfStringsToShow: {
       "4": true,
       "6": true,
-      "7": false,
-      "12": false,
+      "7": true,
+      "12": true,
     },
     availableStringsToShow: [],
     currentPage: 1,
@@ -40,23 +37,24 @@ const Catalog = () => {
     cart: []
   };
 
-  const setGuitarStartCount = () => {
-    return state.currentPage === 1 ? GUITAR_START_COUNT : (GUITAR_START_COUNT + MAX_ITEMS_PER_PAGE) * (state.currentPage - 1);
-  };
-
-  const setGuitarEndCount = () => {
-    return state.currentPage === 1 ? GUITAR_END_COUNT : GUITAR_END_COUNT * state.currentPage;
-  };
-
+  const {cart, setCart} = useContext(ContextApp);
   const [state, setState] = useState(initialState);
   const minPrice = useRef();
   const maxPrice = useRef();
 
-  let pagesAmount = Math.ceil(state.guitars.length / MAX_ITEMS_PER_PAGE);
+  let pagesAmount = Math.ceil(state.guitars.length / MAX_GUITARS_PER_PAGE);
 
   useEffect(() =>{
     setAvailableStringsToShow();
   }, [state.guitarTypesToShow]);
+
+  const setGuitarStartCount = () => {
+    return state.currentPage === 1 ? GuitarCount.GUITAR_START_COUNT : (GuitarCount.GUITAR_START_COUNT + MAX_GUITARS_PER_PAGE) * (state.currentPage - 1);
+  };
+
+  const setGuitarEndCount = () => {
+    return state.currentPage === 1 ? GuitarCount.GUITAR_END_COUNT : GuitarCount.GUITAR_END_COUNT * state.currentPage;
+  };
 
   const setAvailableStringsToShow = () => {
     let availableStringsToShow = [];
@@ -77,30 +75,30 @@ const Catalog = () => {
   const sortItemsHandler = (evt) => {
     let sortedGuitars;
     let currentSortType;
-    let currentSortDirection = !state.currentSortDirection ? SortDirections.ASCENDING : state.currentSortDirection;
+    let currentSortDirection = !state.currentSortDirection ? SortDirection.ASCENDING : state.currentSortDirection;
     switch (evt.target.textContent) {
-      case SortTypes.PRICE: {
-        currentSortType = SortTypes.PRICE;
+      case SortType.PRICE: {
+        currentSortType = SortType.PRICE;
         switch (currentSortDirection) {
-          case SortDirections.ASCENDING: {
+          case SortDirection.ASCENDING: {
             sortedGuitars = state.guitars.sort((a, b) => a.price - b.price);
             break;
           }
-          case SortDirections.DESCENDING: {
+          case SortDirection.DESCENDING: {
             sortedGuitars = state.guitars.sort((a, b) => b.price - a.price);
             break;
           }
         }
         break;
       }
-      case SortTypes.POPULARITY: {
-        currentSortType = SortTypes.POPULARITY;
+      case SortType.POPULARITY: {
+        currentSortType = SortType.POPULARITY;
         switch (currentSortDirection) {
-          case SortDirections.ASCENDING: {
+          case SortDirection.ASCENDING: {
             sortedGuitars = state.guitars.sort((a, b) => a.reviews - b.reviews);
             break;
           }
-          case SortDirections.DESCENDING: {
+          case SortDirection.DESCENDING: {
             sortedGuitars = state.guitars.sort((a, b) => b.reviews - a.reviews);
             break;
           }
@@ -119,30 +117,30 @@ const Catalog = () => {
   const sortItemsDirectionHandler = (evt) => {
     let sortedGuitars;
     let currentSortDirection;
-    let currentSortType = !state.currentSortType ? SortTypes.PRICE : state.currentSortType;
+    let currentSortType = !state.currentSortType ? SortType.PRICE : state.currentSortType;
     switch (evt.target.dataset.direction) {
-      case SortDirections.ASCENDING: {
-        currentSortDirection = SortDirections.ASCENDING;
+      case SortDirection.ASCENDING: {
+        currentSortDirection = SortDirection.ASCENDING;
         switch (currentSortType) {
-          case SortTypes.PRICE: {
+          case SortType.PRICE: {
             sortedGuitars = state.guitars.sort((a, b) => a.price - b.price);
             break;
           }
-          case SortTypes.POPULARITY: {
+          case SortType.POPULARITY: {
             sortedGuitars = state.guitars.sort((a, b) => a.reviews - b.reviews);
             break;
           }
         }
         break;
       }
-      case SortDirections.DESCENDING: {
-        currentSortDirection = SortDirections.DESCENDING;
+      case SortDirection.DESCENDING: {
+        currentSortDirection = SortDirection.DESCENDING;
         switch (currentSortType) {
-          case SortTypes.PRICE: {
+          case SortType.PRICE: {
             sortedGuitars = state.guitars.sort((a, b) => b.price - a.price);
             break;
           }
-          case SortTypes.POPULARITY: {
+          case SortType.POPULARITY: {
             sortedGuitars = state.guitars.sort((a, b) => b.reviews - a.reviews);
             break;
           }
@@ -159,7 +157,7 @@ const Catalog = () => {
   };
 
   const priceHandler = (evt) => {
-    return evt.target.id === Prices.MIN_PRICE ?
+    return evt.target.id === Price.MIN_PRICE ?
       setState({
         ...state,
         minPrice: evt.target.value
@@ -196,7 +194,7 @@ const Catalog = () => {
 
   const submitFiltersHandler = (evt) => {
     evt.preventDefault();
-    maxPrice.current.value = !maxPrice.current.value && minPrice.current.value ? MAX_GUITAR_PRICE : maxPrice.current.value;
+    maxPrice.current.value = !maxPrice.current.value && minPrice.current.value ? GuitarPrice.MAX_GUITAR_PRICE : maxPrice.current.value;
     if (maxPrice.current.value === true || +maxPrice.current.value < +minPrice.current.value) {
       maxPrice.current.value = minPrice.current.value;
       setState({
@@ -205,24 +203,18 @@ const Catalog = () => {
       });
     }
     let filteredGuitars = initialState.guitars;
-    filteredGuitars = minPrice.current.value || maxPrice.current.value ? filteredGuitars.filter((guitar) => {
-      return +guitar.price >= +minPrice.current.value && +guitar.price <= +maxPrice.current.value;
-    }) : filteredGuitars;
+    filteredGuitars = minPrice.current.value || maxPrice.current.value ? filteredGuitars.filter((guitar) => +guitar.price >= +minPrice.current.value && +guitar.price <= +maxPrice.current.value) : filteredGuitars;
     let filteredGuitarsByType = [];
     for (let guitarTypeToShow in state.guitarTypesToShow) {
       if (state.guitarTypesToShow[guitarTypeToShow]) {
-        filteredGuitarsByType = filteredGuitarsByType.concat(filteredGuitars.filter((guitar) => {
-          return guitar.type === guitarTypeToShow;
-        }));
+        filteredGuitarsByType = filteredGuitarsByType.concat(filteredGuitars.filter((guitar) => guitar.type === guitarTypeToShow));
       }
     }
     filteredGuitars = filteredGuitarsByType ? filteredGuitarsByType : filteredGuitars;
     let filteredGuitarsByStrings = [];
     for (let amountOfStrings in state.amountOfStringsToShow) {
       if (state.amountOfStringsToShow[amountOfStrings]) {
-        filteredGuitarsByStrings = filteredGuitarsByStrings.concat(filteredGuitars.filter((guitar) => {
-          return guitar.strings === amountOfStrings;
-        }));
+        filteredGuitarsByStrings = filteredGuitarsByStrings.concat(filteredGuitars.filter((guitar) => guitar.strings === amountOfStrings));
       }
     }
     filteredGuitars = filteredGuitarsByStrings ? filteredGuitarsByStrings : filteredGuitars;
@@ -248,11 +240,11 @@ const Catalog = () => {
     const direction = evt.target.textContent;
     let pageToSwipe;
     switch (direction) {
-      case PageDirections.BACKWARD: {
+      case PageDirection.BACKWARD: {
         pageToSwipe = state.currentPage - 1;
         break;
       }
-      case PageDirections.FORWARD: {
+      case PageDirection.FORWARD: {
         pageToSwipe = state.currentPage + 1;
         break;
       }
@@ -326,9 +318,9 @@ const Catalog = () => {
                 <h3>Цена, ₽</h3>
                 <div className="main__filter-price-inputs">
                   <label htmlFor="min-price" className="visually-hidden"></label>
-                  <input onChange={priceHandler} type="number" id="min-price" name="min-price" placeholder={returnSeparatedPrice(MIN_GUITAR_PRICE)} min={0} ref={minPrice}/>
+                  <input onChange={priceHandler} type="number" id="min-price" name="min-price" placeholder={returnSeparatedPrice(GuitarPrice.MIN_GUITAR_PRICE)} min={0} ref={minPrice}/>
                   <label htmlFor="max-price" className="visually-hidden"></label>
-                  <input onChange={priceHandler} type="number" id="max-price" name="max-price" placeholder={returnSeparatedPrice(MAX_GUITAR_PRICE)} min={0} ref={maxPrice}/>
+                  <input onChange={priceHandler} type="number" id="max-price" name="max-price" placeholder={returnSeparatedPrice(GuitarPrice.MAX_GUITAR_PRICE)} min={0} ref={maxPrice}/>
                 </div>
               </div>
               <div className="main__filter main__filter--guitars">
@@ -360,11 +352,13 @@ const Catalog = () => {
           <section className="main__content-data">
             <div className="main__sorting">
               <p>Сортировать:</p>
-              {Object.values(SortTypes).map((sortType) => {
-                return <button key={sortType} onClick={sortItemsHandler} type="button" className={`main__sorting-button ${state.currentSortType === sortType ? `main__sorting-button--active` : ``}`}>{sortType}</button>;
-              })}
+              <div>
+                {Object.values(SortType).map((sortType) => {
+                  return <button key={sortType} onClick={sortItemsHandler} type="button" className={`main__sorting-button ${state.currentSortType === sortType ? `main__sorting-button--active` : ``}`}>{sortType}</button>;
+                })}
+              </div>
               <div className="main__sorting-arrows">
-                {Object.values(SortDirections).map((sortDirection) => {
+                {Object.values(SortDirection).map((sortDirection) => {
                   return <button key={sortDirection} onClick={sortItemsDirectionHandler} type="button" className={`main__sorting-arrow ${state.currentSortDirection === sortDirection ? `main__sorting-arrow--active` : ``}`} aria-label={sortDirection} data-direction={sortDirection}></button>;
                 })}
               </div>

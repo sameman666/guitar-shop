@@ -12,7 +12,7 @@
   margin: 0 auto;
   padding: 214px 0 0 40px;
   max-width: 1366px;
-  padding-bottom: 139px;
+  padding-bottom: 129px;
 }
 
 .main__crumbs {
@@ -46,6 +46,11 @@
 
 aside {
   min-width: 208px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 
   h2, h3 {
     font-weight: bold;
@@ -134,7 +139,7 @@ aside {
   margin-bottom: 29px;
 
   &--guitars {
-    margin-bottom: 32px;
+    margin-bottom: 15px;
   }
 }
 
@@ -150,6 +155,10 @@ aside {
     border: 0.7px solid #9F9E9E;
     border-radius: 2px;
     letter-spacing: 0.05em;
+  }
+
+  input:hover {
+    background-color: #F5F5F5;
   }
 
   &::before {
@@ -173,10 +182,11 @@ aside {
   background-color: #C1C1C1;
 
   &--submit {
-    min-width: 120px;
+    width: 120px;
     min-height: 30px;
     text-transform: uppercase;
-    margin-top: 14px;
+    margin-top: -3px;
+    margin-bottom: 10px;
   }
 }
 
@@ -228,6 +238,8 @@ aside {
   display: flex;
   align-self: start;
   margin-top: 4px;
+  flex-wrap: wrap;
+  min-width: 74px;
 
   @-moz-document url-prefix() {
     margin-right: 52px;
@@ -244,6 +256,7 @@ aside {
     margin-left: 23px;
     padding: 0;
     background-color: transparent;
+    margin-bottom: 5px;
   }
 
   .main__sorting-arrow--active {
@@ -266,6 +279,7 @@ aside {
 
 .main__pagination {
   display: flex;
+  flex-wrap: wrap;
   margin-left: auto;
   margin-right: 13px;
   margin-top: auto;
@@ -288,6 +302,7 @@ aside {
   font-size: 12px;
   line-height: 20px;
   letter-spacing: 0.05em;
+  margin-bottom: 10px;
 
   &--active {
     background-color: #585757;

@@ -4,7 +4,7 @@ import {ContextApp} from '../../utils/const';
 import {Link} from 'react-router-dom';
 import {returnSeparatedPrice} from '../../utils/const';
 import Popup from '../popup/popup';
-import {ESCAPE_KEYCODE} from '../../utils/const';
+import {ESCAPE_KEYCODE, PromoCodeDiscount} from '../../utils/const';
 
 const Cart = () => {
 
@@ -22,7 +22,6 @@ const Cart = () => {
   };
 
   const [state, setState] = useState(initialState);
-
   const amount = useRef();
   const promoCode = useRef();
 
@@ -109,7 +108,7 @@ const Cart = () => {
           setState({
             ...state,
             invalidPromocode: false,
-            totalPrice: state.totalPrice - state.totalPrice * 10 / 100,
+            totalPrice: state.totalPrice - state.totalPrice * PromoCodeDiscount.GITARAHIT / 100,
             promocodesApplied: {
               ...state.promocodesApplied,
               GITARAHIT: true
@@ -123,7 +122,7 @@ const Cart = () => {
           setState({
             ...state,
             invalidPromocode: false,
-            totalPrice: state.totalPrice - 700,
+            totalPrice: state.totalPrice - PromoCodeDiscount.SUPERGITARA,
             promocodesApplied: {
               ...state.promocodesApplied,
               SUPERGITARA: true
@@ -134,12 +133,8 @@ const Cart = () => {
       }
       case `GITARA2020`: {
         if (!state.promocodesApplied.GITARA2020) {
-          let discountInRubles = state.totalPrice * 30 / 100;
-          if (discountInRubles <= 3500) {
-            discountInRubles = discountInRubles;
-          } else {
-            discountInRubles = 3500;
-          }
+          let discountInRubles = state.totalPrice * PromoCodeDiscount.GITARA2020 / 100;
+          discountInRubles = discountInRubles <= PromoCodeDiscount.MAX_DISCOUNT_IN_RUBLES ? discountInRubles : PromoCodeDiscount.MAX_DISCOUNT_IN_RUBLES;
           setState({
             ...state,
             invalidPromocode: false,
@@ -176,9 +171,9 @@ const Cart = () => {
             {cart.map((guitar) =>
               <li key={guitar.id} className="main__cart-list-item">
                 <button onClick={removePopupHandler} data-id={guitar.id} type="button"></button>
-                <img src={guitar.image} alt="" width="48" height="128"/>
+                <img src={guitar.image} alt={guitar.name} width="48" height="128"/>
                 <div className="main__cart-list-item-info">
-                  <h4>{guitar.type} {guitar.name}</h4>
+                  <p>{guitar.type} {guitar.name}</p>
                   <p>Артикул: {guitar.id}</p>
                   <p>{guitar.type}, {guitar.strings} струнная</p>
                 </div>
@@ -193,8 +188,9 @@ const Cart = () => {
             )}
           </ul>
           <section className="main__purchase">
+            <h2 className="visually-hidden">Оформить заказ</h2>
             <div className="main__promocode">
-              <h5>Промокод на скидку</h5>
+              <p>Промокод на скидку</p>
               <p>Введите свой промокод, если он у вас есть.</p>
               <div className="main__promocode-field">
                 <input ref={promoCode} type="text" name="promocode" id="promocode" placeholder="GITARAHIT"/>

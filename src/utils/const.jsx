@@ -289,36 +289,6 @@ const GUITARS = [
   },
 ];
 
-const SortTypes = {
-  PRICE: `по цене`,
-  POPULARITY: `по популярности`
-};
-
-const SortDirections = {
-  ASCENDING: `по возрастанию`,
-  DESCENDING: `по убыванию`
-};
-
-const Prices = {
-  PRICE_SEPARATOR: 3,
-  MIN_PRICE: `min-price`,
-  MAX_PRICE: `max-price`,
-};
-
-const PageDirections = {
-  BACKWARD: `Назад`,
-  FORWARD: `Далее`,
-};
-
-const AVAILABLE_STRINGS = [4, 6, 7, 12];
-const GUITAR_START_COUNT = 0;
-const GUITAR_END_COUNT = 9;
-const MAX_ITEMS_PER_PAGE = 9;
-const ESCAPE_KEYCODE = 27;
-const GUITARS_SORTED_BY_PRICE = GUITARS.slice().sort((a, b) => b.price - a.price);
-const MAX_GUITAR_PRICE = GUITARS_SORTED_BY_PRICE[0].price;
-const MIN_GUITAR_PRICE = GUITARS_SORTED_BY_PRICE[GUITARS_SORTED_BY_PRICE.length - 1].price;
-
 const GUITAR_TYPES = [
   {
     id: `acoustic-guitars`,
@@ -340,15 +310,59 @@ const GUITAR_TYPES = [
   },
 ];
 
+const AVAILABLE_STRINGS = [4, 6, 7, 12];
+const MAX_GUITARS_PER_PAGE = 9;
+const ESCAPE_KEYCODE = 27;
+const DEFAULT_ITEM_AMOUNT = 1;
+const GUITARS_SORTED_BY_PRICE = GUITARS.slice().sort((a, b) => b.price - a.price);
+
+const ContextApp = React.createContext();
+
+const GuitarPrice = {
+  MAX_GUITAR_PRICE: GUITARS_SORTED_BY_PRICE[0].price,
+  MIN_GUITAR_PRICE: GUITARS_SORTED_BY_PRICE[GUITARS_SORTED_BY_PRICE.length - 1].price
+};
+
+const SortType = {
+  PRICE: `по цене`,
+  POPULARITY: `по популярности`
+};
+
+const SortDirection = {
+  ASCENDING: `по возрастанию`,
+  DESCENDING: `по убыванию`
+};
+
+const Price = {
+  PRICE_SEPARATOR: 3,
+  MIN_PRICE: `min-price`,
+  MAX_PRICE: `max-price`,
+};
+
+const PageDirection = {
+  BACKWARD: `Назад`,
+  FORWARD: `Далее`,
+};
+
+const GuitarCount = {
+  GUITAR_START_COUNT: 0,
+  GUITAR_END_COUNT: 9,
+};
+
+const PromoCodeDiscount = {
+  GITARAHIT: 10,
+  SUPERGITARA: 700,
+  GITARA2020: 30,
+  MAX_DISCOUNT_IN_RUBLES: 3500,
+};
+
 const returnSeparatedPrice = (price) => {
   let separatedPrice = typeof price === `string` ? price.split(``).reverse() : price.toFixed().split(``).reverse();
 
-  for (let i = Prices.PRICE_SEPARATOR; i < separatedPrice.length; i = i + Prices.PRICE_SEPARATOR + 1) {
+  for (let i = Price.PRICE_SEPARATOR; i < separatedPrice.length; i = i + Price.PRICE_SEPARATOR + 1) {
     separatedPrice.splice(i, 0, ` `);
   }
   return separatedPrice.reverse().join(``);
 };
 
-const ContextApp = React.createContext();
-
-export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, MAX_GUITAR_PRICE, MIN_GUITAR_PRICE, GUITAR_START_COUNT, GUITAR_END_COUNT, MAX_ITEMS_PER_PAGE, SortTypes, SortDirections, Prices, ContextApp, PageDirections, returnSeparatedPrice};
+export {GUITARS, GUITAR_TYPES, ESCAPE_KEYCODE, AVAILABLE_STRINGS, GuitarPrice, GuitarCount, MAX_GUITARS_PER_PAGE, DEFAULT_ITEM_AMOUNT, SortType, SortDirection, Price, ContextApp, PageDirection, PromoCodeDiscount, returnSeparatedPrice};
