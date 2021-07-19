@@ -9,7 +9,6 @@ import {ESCAPE_KEYCODE, PromoCodeDiscount} from '../../utils/const';
 const Cart = () => {
 
   let {cart, setCart} = useContext(ContextApp);
-
   const initialState = {
     removePopupIsOpen: false,
     guitarToRemove: null,
@@ -45,15 +44,15 @@ const Cart = () => {
         ...state,
         totalPrice: newCart.reduce((total, item) => total + +item.price * item.amount, 0),
       });
-    } else {
-      const guitarToRemove = cart.find((guitar) => guitar.id === evt.target.dataset.id);
-      setState({
-        ...state,
-        removePopupIsOpen: !state.removePopupIsOpen,
-        guitarToRemove
-      });
-      document.body.classList.toggle(`popup-opened`);
+      return;
     }
+    const guitarToRemove = cart.find((guitar) => guitar.id === evt.target.dataset.id);
+    setState({
+      ...state,
+      removePopupIsOpen: !state.removePopupIsOpen,
+      guitarToRemove
+    });
+    document.body.classList.toggle(`popup-opened`);
   };
 
   const removePopupHandler = (evt) => {
@@ -193,7 +192,7 @@ const Cart = () => {
               <p>Промокод на скидку</p>
               <p>Введите свой промокод, если он у вас есть.</p>
               <div className="main__promocode-field">
-                <input ref={promoCode} type="text" name="promocode" id="promocode" placeholder="GITARAHIT"/>
+                <input ref={promoCode} type="text" name="promocode" id="promocode" placeholder="Введите промокод"/>
                 <button onClick={applyPromoCode} className="main__button main__button--promocode" type="button">Применить купон</button>
               </div>
               {state.invalidPromocode && <p style={{color: `red`}}>Недействительный промокод</p>}

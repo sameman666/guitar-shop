@@ -6,8 +6,7 @@ import {ContextApp} from '../../utils/const';
 
 const App = () => {
 
-  const initialCart = [];
-  const [cart, setCart] = useState(initialCart);
+  const [cart, setCart] = useState([]);
 
 
   return (

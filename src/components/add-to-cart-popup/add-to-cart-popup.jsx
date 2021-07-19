@@ -20,7 +20,7 @@ const AddToCartPopup = (props) => {
             <p>{choosedGuitar.type}, {choosedGuitar.strings} струнная </p>
             <p>Цена: {returnSeparatedPrice(choosedGuitar.price)} ₽</p>
           </div>
-          <button onClick={onAddToCartHandler} className="main__button" type="button" autoFocus={true}>Добавить в корзину</button>
+          <button onClick={onAddToCartHandler} data-id={choosedGuitar.id} className="main__button" type="button" autoFocus={true}>Добавить в корзину</button>
         </div>
       </div>
     </div>

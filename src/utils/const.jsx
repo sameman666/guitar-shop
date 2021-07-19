@@ -335,6 +335,7 @@ const SortDirection = {
 
 const Price = {
   PRICE_SEPARATOR: 3,
+  PRICE_SEPARATOR_WITH_SPACE: 1,
   MIN_PRICE: `min-price`,
   MAX_PRICE: `max-price`,
 };
@@ -358,8 +359,7 @@ const PromoCodeDiscount = {
 
 const returnSeparatedPrice = (price) => {
   let separatedPrice = typeof price === `string` ? price.split(``).reverse() : price.toFixed().split(``).reverse();
-
-  for (let i = Price.PRICE_SEPARATOR; i < separatedPrice.length; i = i + Price.PRICE_SEPARATOR + 1) {
+  for (let i = Price.PRICE_SEPARATOR; i < separatedPrice.length; i = i + Price.PRICE_SEPARATOR + Price.PRICE_SEPARATOR_WITH_SPACE) {
     separatedPrice.splice(i, 0, ` `);
   }
   return separatedPrice.reverse().join(``);

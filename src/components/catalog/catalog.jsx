@@ -8,9 +8,11 @@ import {Link} from 'react-router-dom';
 
 const Catalog = () => {
 
-  GUITARS.forEach((item) => {
-    item.amount = DEFAULT_ITEM_AMOUNT;
-  });
+  useEffect(() =>{
+    GUITARS.forEach((item) => {
+      item.amount = item.amount ? item.amount : DEFAULT_ITEM_AMOUNT;
+    });
+  }, []);
 
   const initialState = {
     guitars: GUITARS,
@@ -19,9 +21,9 @@ const Catalog = () => {
     minPrice: ``,
     maxPrice: ``,
     guitarTypesToShow: {
-      "акустическая гитара": true,
-      "электрогитара": true,
-      "укулеле": true,
+      "акустическая гитара": false,
+      "электрогитара": false,
+      "укулеле": false,
     },
     amountOfStringsToShow: {
       "4": true,
@@ -57,18 +59,18 @@ const Catalog = () => {
   };
 
   const setAvailableStringsToShow = () => {
-    let availableStringsToShow = [];
+    let strings = [];
     for (let guitarTypeToShow in state.guitarTypesToShow) {
       if (state.guitarTypesToShow[guitarTypeToShow]) {
         let availableStringsForThisType = GUITAR_TYPES.find((guitar) => guitar.name === guitarTypeToShow).availableAmountOfStrings;
-        availableStringsToShow = availableStringsToShow.concat(availableStringsForThisType);
+        strings = strings.concat(availableStringsForThisType);
       }
     }
-    availableStringsToShow = new Set(availableStringsToShow);
-    availableStringsToShow = [...availableStringsToShow];
+    strings = new Set(strings);
+    strings = [...strings];
     setState({
       ...state,
-      availableStringsToShow
+      availableStringsToShow: strings
     });
   };
 
@@ -256,9 +258,6 @@ const Catalog = () => {
   };
 
   const addToCartPopupHandler = (evt) => {
-    if (cart.find((guitar) => guitar.id === evt.target.dataset.id)) {
-      return;
-    }
     const choosedGuitar = state.guitars.find((guitar) => guitar.id === evt.target.dataset.id);
     setState({
       ...state,
@@ -290,7 +289,18 @@ const Catalog = () => {
     }
   };
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (evt) => {
+    if (cart.find((guitar) => guitar.id === evt.target.dataset.id)) {
+      let newCart = cart.slice();
+      ++newCart.find((guitar) => guitar.id === evt.target.dataset.id).amount;
+      setCart(newCart);
+      setState({
+        ...state,
+        addToCartPopupIsOpen: initialState.addToCartPopupIsOpen,
+        addedToCartPopupIsOpen: true
+      });
+      return;
+    }
     setState({
       ...state,
       addToCartPopupIsOpen: initialState.addToCartPopupIsOpen,
@@ -317,9 +327,9 @@ const Catalog = () => {
               <div className="main__filter">
                 <h3>Цена, ₽</h3>
                 <div className="main__filter-price-inputs">
-                  <label htmlFor="min-price" className="visually-hidden"></label>
+                  <label htmlFor="min-price" className="visually-hidden">Минимальная цена</label>
                   <input onChange={priceHandler} type="number" id="min-price" name="min-price" placeholder={returnSeparatedPrice(GuitarPrice.MIN_GUITAR_PRICE)} min={0} ref={minPrice}/>
-                  <label htmlFor="max-price" className="visually-hidden"></label>
+                  <label htmlFor="max-price" className="visually-hidden">Максимальная цена</label>
                   <input onChange={priceHandler} type="number" id="max-price" name="max-price" placeholder={returnSeparatedPrice(GuitarPrice.MAX_GUITAR_PRICE)} min={0} ref={maxPrice}/>
                 </div>
               </div>
@@ -340,7 +350,7 @@ const Catalog = () => {
                 <ul className="main__filter-list">
                   {AVAILABLE_STRINGS.map((string, index) => {
                     return <li key={index}>
-                      <input onChange={stringsHandler} type="checkbox" id={`${string}-strings`} name={`${string}-strings`} data-strings={string} defaultChecked={state.amountOfStringsToShow[string]} disabled={setDisabled(string)}/>
+                      <input onChange={stringsHandler} type="checkbox" id={`${string}-strings`} name={`${string}-strings`} data-strings={string} disabled={setDisabled(string)}/>
                       <label htmlFor={`${string}-strings`}>{string}</label>
                     </li>;
                   })}
